@@ -21,16 +21,15 @@ class ShipmentWidget extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          // margin: const EdgeInsets.only(top: 4),
           decoration: BoxDecoration(
               color:
                   isFull ? AppColor.darkScaffoldColor : AppColor.primaryColor,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: AppColor.borderColor)),
-          height: 88,
+          height: MediaQuery.sizeOf(context).height * 0.105,
         ),
         Container(
-          margin: const EdgeInsets.only(bottom: 18),
+          margin: EdgeInsets.only(bottom: MediaQuery.sizeOf(context).height * 0.03),
           decoration: BoxDecoration(
             color: isFull ? AppColor.primaryColor : AppColor.darkScaffoldColor,
             borderRadius: BorderRadius.circular(8),
@@ -62,7 +61,7 @@ class ShipmentWidget extends StatelessWidget {
               ),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.sizeOf(context).width * 0.04),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,15 +93,17 @@ class ShipmentWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.sizeOf(context).width * 0.02,
+                    vertical: MediaQuery.sizeOf(context).height * 0.02),
                 child: CircleAvatar(
-                  radius: 22,
+                  radius: MediaQuery.sizeOf(context).width * 0.054,
                   backgroundColor: isFull
                       ? AppColor.darkScaffoldColor
                       : AppColor.primaryColor,
                   child: Icon(
                     Icons.cloud_download,
-                    size: 32,
+                    size: MediaQuery.sizeOf(context).width * 0.08,
                     color: isFull
                         ? AppColor.primaryColor
                         : AppColor.darkScaffoldColor,

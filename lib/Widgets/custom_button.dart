@@ -21,22 +21,30 @@ class CustomButton extends StatelessWidget {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 24.w),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16.r),
-          color: AppColor.darkScaffoldColor,
-          border: Border.all(color: Colors.black54)),
+        borderRadius: BorderRadius.circular(16.r),
+        color: AppColor.darkScaffoldColor,
+        border: Border.all(color: Colors.black54),
+      ),
       child: TextButton(
         onPressed: onPressed,
+        style: TextButton.styleFrom(
+          padding: EdgeInsets.zero,
+        ),
         child: isLoading
-            ? const CircularProgressIndicator()
+            ? const Center(
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(AppColor.primaryColor),
+          ),
+        )
             : Text(
-                buttonName,
-                style: TextStyle(
-                  color: AppColor.primaryColor,
-                  fontSize: 20.sp,
-                  fontFamily: "cairoFonts",
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
+          buttonName,
+          style: TextStyle(
+            color: AppColor.primaryColor,
+            fontSize: 20.sp,
+            fontFamily: "cairoFonts",
+            fontWeight: FontWeight.w400,
+          ),
+        ),
       ),
     );
   }

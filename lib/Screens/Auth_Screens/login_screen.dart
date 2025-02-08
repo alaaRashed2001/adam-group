@@ -4,7 +4,6 @@ import 'package:adam_group/Screens/bottom_navigat_bar.dart';
 import 'package:adam_group/Widgets/custom_button.dart';
 import 'package:adam_group/Widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
@@ -36,28 +35,28 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 52.h,
+              height: MediaQuery.sizeOf(context).height * 0.06,
             ),
-            // الشعار
+
             Center(
               child: Image.asset(
                 'assets/images/logo.png',
-                width: 350,
+                width: MediaQuery.sizeOf(context).width * 0.7,
               ),
             ),
 
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.w),
+              padding: EdgeInsets.symmetric(horizontal: MediaQuery.sizeOf(context).width * 0.05),
               child: CustomTextInputField(
                 controller: mobileEditingController,
                 hint: AppLocalizations.of(context)!.mobileNumber,
               ),
             ),
             SizedBox(
-              height: 16.h,
+              height: MediaQuery.sizeOf(context).height * 0.02,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.w),
+              padding: EdgeInsets.symmetric(horizontal: MediaQuery.sizeOf(context).width * 0.05),
               child: CustomTextInputField(
                 controller: passwordEditingController,
                 obscure: true,
@@ -66,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
 
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.h, vertical: 14.w),
+              padding: EdgeInsets.symmetric(horizontal: MediaQuery.sizeOf(context).width * 0.04, vertical: MediaQuery.sizeOf(context).height * 0.02),
               child: InkWell(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
@@ -77,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   AppLocalizations.of(context)!.forgotPassword,
                   style: TextStyle(
                     color: color,
-                    fontSize: 14.sp,
+                    fontSize: MediaQuery.sizeOf(context).width * 0.04,
                     fontFamily: "cairoFonts",
                   ),
                 ),
@@ -93,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
               buttonName: AppLocalizations.of(context)!.login,
             ),
             SizedBox(
-              height: 16.h,
+              height: MediaQuery.sizeOf(context).height * 0.02,
             ),
             Center(
               child: InkWell(
@@ -102,31 +101,32 @@ class _LoginScreenState extends State<LoginScreen> {
                     context: context,
                     shape: const RoundedRectangleBorder(
                       borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(46)),
+                      BorderRadius.vertical(top: Radius.circular(46)),
                     ),
                     isScrollControlled: true,
                     builder: (context) {
                       return Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 16.w, vertical: 16.h),
+                            horizontal: MediaQuery.sizeOf(context).width * 0.05,
+                            vertical: MediaQuery.sizeOf(context).height * 0.02),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Image.asset(
                               "assets/images/fingerprint.png",
-                              height: 100,
-                              width: 100,
+                              height: MediaQuery.sizeOf(context).height * 0.12,
+                              width: MediaQuery.sizeOf(context).width * 0.24,
                             ),
-                            SizedBox(height: 16.h),
+                            SizedBox(height: MediaQuery.sizeOf(context).height * 0.02),
                             Text(
                               AppLocalizations.of(context)!.confirmFingerprint,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: 16.h,
+                                fontSize: MediaQuery.sizeOf(context).width * 0.04,
                                 fontFamily: "cairoFonts",
                               ),
                             ),
-                            SizedBox(height: 16.h),
+                            SizedBox(height: MediaQuery.sizeOf(context).height * 0.02),
                             Align(
                               alignment: Alignment.centerLeft,
                               child: ElevatedButton(
@@ -147,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
                 child: Image.asset(
                   "assets/images/fingerprint.png",
-                  width: 112,
+                  width: MediaQuery.sizeOf(context).width * 0.28,
                 ),
               ),
             )

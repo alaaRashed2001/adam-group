@@ -27,6 +27,7 @@ class CustomTextInputField extends StatefulWidget {
 
 class _CustomTextInputFieldState extends State<CustomTextInputField> {
   late bool showPassword = widget.obscure;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,31 +38,32 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Center(
-        child: TextField(
-          controller: widget.controller,
-          obscureText: showPassword,
-          onChanged: widget.onChanged,
-          decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: widget.hint,
-              suffixIcon: widget.obscure
-                  ? InkWell(
-                      onTap: () {
-                        setState(() {
-                          showPassword = !showPassword;
-                        });
-                      },
-                      child: Icon(
-                        showPassword ? Icons.visibility : Icons.visibility_off,
-                        color: Colors.grey,
-                      ))
-                  : null,
-              focusedBorder: buildOutlineInputBorder(),
-              enabledBorder: buildOutlineInputBorder()),
-          keyboardType: widget.inputType,
-          textInputAction: widget.inputAction,
+      child: TextField(
+        controller: widget.controller,
+        obscureText: showPassword,
+        onChanged: widget.onChanged,
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: widget.hint,
+          contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+          suffixIcon: widget.obscure
+              ? InkWell(
+            onTap: () {
+              setState(() {
+                showPassword = !showPassword;
+              });
+            },
+            child: Icon(
+              showPassword ? Icons.visibility : Icons.visibility_off,
+              color: Colors.grey,
+            ),
+          )
+              : null,
+          focusedBorder: buildOutlineInputBorder(),
+          enabledBorder: buildOutlineInputBorder(),
         ),
+        keyboardType: widget.inputType,
+        textInputAction: widget.inputAction,
       ),
     );
   }

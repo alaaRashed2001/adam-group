@@ -4,7 +4,6 @@ import 'package:adam_group/Providers/theme_provider.dart';
 import 'package:adam_group/Screens/Inner_Screen/settings_screen.dart';
 import 'package:adam_group/Widgets/gradient_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
@@ -36,206 +35,216 @@ class _ProfileScreenState extends State<ProfileScreen>
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.sizeOf(context).width * 0.04,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               Center(
                 child: Text(
                   AppLocalizations.of(context)!.profile,
                   style: TextStyle(
                     color: color,
-                    fontSize: 24.sp,
+                    fontSize: MediaQuery.sizeOf(context).width * 0.06,
                     fontFamily: "cairoFonts",
                   ),
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(
-                height: 24.h,
-              ),
+              SizedBox(height: MediaQuery.sizeOf(context).height * 0.03),
+
+
               Center(
                 child: Container(
-                  padding: const EdgeInsets.all(5),
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    // color: Colors.grey,
+                  padding: EdgeInsets.all(
+                    MediaQuery.sizeOf(context).width * 0.01,
                   ),
+                  decoration: const BoxDecoration(shape: BoxShape.circle),
                   child: CircleAvatar(
                     backgroundColor: AppColor.borderColor,
-                    radius: 90.w,
-                    backgroundImage:
-                        const AssetImage('assets/images/avatar.png'),
+                    radius: MediaQuery.sizeOf(context).width * 0.22,
+                    backgroundImage: const AssetImage('assets/images/avatar.png'),
                   ),
                 ),
               ),
-              SizedBox(
-                height: 24.h,
-              ),
-              Column(
+              SizedBox(height: MediaQuery.sizeOf(context).height * 0.03),
+
+
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          AppLocalizations.of(context)!.fullName,
-                          style: TextStyle(
-                            color: color,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w300,
-                            fontFamily: "cairoFonts",
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
+                  Expanded(
+                    child: Text(
+                      AppLocalizations.of(context)!.fullName,
+                      style: TextStyle(
+                        color: color,
+                        fontSize: MediaQuery.sizeOf(context).width * 0.035,
+                        fontWeight: FontWeight.w300,
+                        fontFamily: "cairoFonts",
                       ),
-                      SizedBox(
-                        width: 6.w,
-                      ),
-                      Expanded(
-                          flex: 3,
-                          child: Container(
-                            height: 50.h,
-                            width: double.infinity,
-                            margin: EdgeInsets.symmetric(vertical: 8.h),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 16.w, vertical: 16.h),
-                            decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius: BorderRadius.circular(8),
-                                border:
-                                    Border.all(color: AppColor.borderColor)),
-                            child: Text(
-                              "محمد احمد",
-                              style: TextStyle(
-                                color: color,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w300,
-                                fontFamily: "cairoFonts",
-                              ),
-                              // textAlign: TextAlign.center,
-                            ),
-                          )),
-                    ],
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          AppLocalizations.of(context)!.mobileNumber,
-                          style: TextStyle(
-                            color: color,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w300,
-                            fontFamily: "cairoFonts",
-                          ),
-                          textAlign: TextAlign.center,
+                  SizedBox(width: MediaQuery.sizeOf(context).width * 0.015),
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      height: MediaQuery.sizeOf(context).height * 0.06,
+                      width: double.infinity,
+                      margin: EdgeInsets.symmetric(
+                        vertical: MediaQuery.sizeOf(context).height * 0.01,
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.sizeOf(context).width * 0.04,
+                        vertical: MediaQuery.sizeOf(context).height * 0.015,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: AppColor.borderColor),
+                      ),
+                      child: Text(
+                        "محمد احمد",
+                        style: TextStyle(
+                          color: color,
+                          fontSize: MediaQuery.sizeOf(context).width * 0.035,
+                          fontWeight: FontWeight.w300,
+                          fontFamily: "cairoFonts",
                         ),
                       ),
-                      SizedBox(
-                        width: 6.w,
-                      ),
-                      Expanded(
-                          flex: 3,
-                          child: Container(
-                            height: 50.h,
-                            width: double.infinity,
-                            margin: EdgeInsets.symmetric(vertical: 8.h),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 16.w, vertical: 16.h),
-                            decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius: BorderRadius.circular(8),
-                                border:
-                                    Border.all(color: AppColor.borderColor)),
-                            child: Text(
-                              "0502002689",
-                              style: TextStyle(
-                                color: color,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w300,
-                                fontFamily: "cairoFonts",
-                              ),
-                              // textAlign: TextAlign.center,
-                            ),
-                          )),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          AppLocalizations.of(context)!.address,
-                          style: TextStyle(
-                            color: color,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w300,
-                            fontFamily: "cairoFonts",
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 6.w,
-                      ),
-                      Expanded(
-                          flex: 3,
-                          child: Container(
-                            height: 50.h,
-                            width: double.infinity,
-                            margin: EdgeInsets.symmetric(vertical: 8.h),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 16.w, vertical: 16.h),
-                            decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius: BorderRadius.circular(8),
-                                border:
-                                    Border.all(color: AppColor.borderColor)),
-                            child: Text(
-                              "Nablus",
-                              style: TextStyle(
-                                color: color,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w300,
-                                fontFamily: "cairoFonts",
-                              ),
-                              // textAlign: TextAlign.center,
-                            ),
-                          )),
-                    ],
+                    ),
                   ),
                 ],
               ),
-              SizedBox(
-                height: 36.h,
+
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Text(
+                      AppLocalizations.of(context)!.mobileNumber,
+                      style: TextStyle(
+                        color: color,
+                        fontSize: MediaQuery.sizeOf(context).width * 0.035,
+                        fontWeight: FontWeight.w300,
+                        fontFamily: "cairoFonts",
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  SizedBox(width: MediaQuery.sizeOf(context).width * 0.015),
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      height: MediaQuery.sizeOf(context).height * 0.06,
+                      width: double.infinity,
+                      margin: EdgeInsets.symmetric(
+                        vertical: MediaQuery.sizeOf(context).height * 0.01,
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.sizeOf(context).width * 0.04,
+                        vertical: MediaQuery.sizeOf(context).height * 0.015,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: AppColor.borderColor),
+                      ),
+                      child: Text(
+                        "0502002689",
+                        style: TextStyle(
+                          color: color,
+                          fontSize: MediaQuery.sizeOf(context).width * 0.035,
+                          fontWeight: FontWeight.w300,
+                          fontFamily: "cairoFonts",
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
+
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Text(
+                      AppLocalizations.of(context)!.address,
+                      style: TextStyle(
+                        color: color,
+                        fontSize: MediaQuery.sizeOf(context).width * 0.035,
+                        fontWeight: FontWeight.w300,
+                        fontFamily: "cairoFonts",
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  SizedBox(width: MediaQuery.sizeOf(context).width * 0.015),
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      height: MediaQuery.sizeOf(context).height * 0.06,
+                      width: double.infinity,
+                      margin: EdgeInsets.symmetric(
+                        vertical: MediaQuery.sizeOf(context).height * 0.01,
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.sizeOf(context).width * 0.04,
+                        vertical: MediaQuery.sizeOf(context).height * 0.015,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: AppColor.borderColor),
+                      ),
+                      child: Text(
+                        "Nablus",
+                        style: TextStyle(
+                          color: color,
+                          fontSize: MediaQuery.sizeOf(context).width * 0.035,
+                          fontWeight: FontWeight.w300,
+                          fontFamily: "cairoFonts",
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: MediaQuery.sizeOf(context).height * 0.05),
+
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   GradientButton(
                     onPressed: () {
                       warningDialog(
-                          title: AppLocalizations.of(context)!.logout,
-                          subtitle:
-                              AppLocalizations.of(context)!.subTitleLogOut,
-                          onPressed: () {
-                            /// Function LogOut
-                          },
-                          context: context);
+                        title: AppLocalizations.of(context)!.logout,
+                        subtitle: AppLocalizations.of(context)!.subTitleLogOut,
+                        onPressed: () {
+                          /// Function LogOut
+                        },
+                        context: context,
+                      );
                     },
                     text: AppLocalizations.of(context)!.logout,
-                    horizontalPadding: 16.w,
+                    horizontalPadding:
+                    MediaQuery.sizeOf(context).width * 0.04,
                   ),
                   GradientButton(
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const SettingsScreen(),
-                      ));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const SettingsScreen(),
+                        ),
+                      );
                     },
                     text: AppLocalizations.of(context)!.settings,
-                    horizontalPadding: 24,
+                    horizontalPadding:
+                    MediaQuery.sizeOf(context).width * 0.05,
                   ),
                 ],
               ),

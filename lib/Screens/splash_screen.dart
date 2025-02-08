@@ -1,9 +1,7 @@
-import 'package:adam_group/Providers/theme_provider.dart';
 import 'package:adam_group/Screens/welcom_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -34,30 +32,24 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Expanded(
-        child: Center(
-          child: Column(
-            //  mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 62.h,
-              ),
-              // الشعار
-              Image.asset(
-                'assets/images/logo.png',
-                width: 380,
-              ),
-              SizedBox(
-                height: 32.h,
-              ),
-              Lottie.asset(
-                'assets/lottie/loader.json',
-                width: 165,
-                height: 188,
-              ),
-            ],
+      body: Column(
+        children: [
+          SizedBox(
+            height: 62.h,
           ),
-        ),
+          Image.asset(
+            'assets/images/logo.png',
+            width: 380,
+          ),
+          SizedBox(
+            height: 32.h,
+          ),
+          Lottie.asset(
+            'assets/lottie/loader.json',
+            width: 165,
+            height: 188,
+          ),
+        ],
       ),
     );
   }

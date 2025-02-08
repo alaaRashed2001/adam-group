@@ -38,7 +38,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          padding: EdgeInsets.symmetric(horizontal: MediaQuery.sizeOf(context).width * 0.04), // الهوامش الديناميكية
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -54,7 +54,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
               ),
               SizedBox(
-                height: 24.h,
+                height: MediaQuery.sizeOf(context).height * 0.03, // المسافة بين العنوان والعناصر
               ),
               Center(
                 child: Container(
@@ -67,20 +67,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     children: [
                       CircleAvatar(
                         backgroundColor: AppColor.borderColor,
-                        radius: 95.w,
-                        backgroundImage:
-                            const AssetImage('assets/images/avatar.png'),
+                        radius: MediaQuery.sizeOf(context).width * 0.2,
+                        backgroundImage: const AssetImage('assets/images/avatar.png'),
                       ),
                       Positioned(
                         right: 0,
                         bottom: 0,
                         child: InkWell(
                           onTap: () {
-                            ///
+                            // فعل تحميل الصورة
                           },
                           child: Image.asset(
                             'assets/images/upload_avatar.png',
-                            width: 50,
+                            width: MediaQuery.sizeOf(context).width * 0.12,
                           ),
                         ),
                       ),
@@ -89,7 +88,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
               ),
               SizedBox(
-                height: 24.h,
+                height: MediaQuery.sizeOf(context).height * 0.03,
               ),
               Column(
                 children: [
@@ -109,7 +108,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                       ),
                       SizedBox(
-                        width: 6.w,
+                        width: MediaQuery.sizeOf(context).width * 0.02,
                       ),
                       Expanded(
                         flex: 3,
@@ -134,7 +133,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                       ),
                       SizedBox(
-                        width: 6.w,
+                        width: MediaQuery.sizeOf(context).width * 0.02,
                       ),
                       Expanded(
                         flex: 3,
@@ -159,7 +158,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                       ),
                       SizedBox(
-                        width: 6.w,
+                        width: MediaQuery.sizeOf(context).width * 0.02,
                       ),
                       Expanded(
                         flex: 3,
@@ -171,7 +170,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ],
               ),
               SizedBox(
-                height: 36.h,
+                height: MediaQuery.sizeOf(context).height * 0.05,
               ),
               Center(
                 child: GradientButton(
@@ -179,7 +178,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     /// Update Info
                   },
                   text: AppLocalizations.of(context)!.save,
-                  horizontalPadding: 24,
+                  horizontalPadding: MediaQuery.sizeOf(context).width * 0.1,
                 ),
               ),
             ],

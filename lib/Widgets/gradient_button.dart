@@ -18,9 +18,12 @@ class GradientButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
         padding: EdgeInsets.symmetric(
-            horizontal: horizontalPadding, vertical: 6.0.h),
+          horizontal: horizontalPadding,
+          vertical: 6.0.h,
+        ),
         decoration: BoxDecoration(
           gradient: const LinearGradient(
             colors: [
@@ -31,6 +34,14 @@ class GradientButton extends StatelessWidget {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(15.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              spreadRadius: 1,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
         child: Text(
           text,

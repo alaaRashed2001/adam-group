@@ -35,7 +35,11 @@
   "contactUs":"Contact Us",
   "subTitleDeleteAccount":"This action will permanently delete your account and all associated data. Are you sure you want to proceed?",
   "subTitleLogOut":"Are you sure you want to log out? You can log in again anytime to access your account.",
-  "subTitlePolicy":"Adam Group is committed to protecting users' privacy and ensuring the confidentiality of their personal data. We collect information such as name, phone number, shipping details, and device data to improve our services and develop the app. The data will be used to provide shipping services, manage operations, and communicate with users. It will not be shared with third parties except when necessary and in compliance with laws. We ensure data protection through advanced and constantly updated security systems. Cookies are used to enhance performance, and users will be informed of any policy updates"
+  "subTitlePolicy":"Adam Group is committed to protecting users' privacy and ensuring the confidentiality of their personal data. We collect information such as name, phone number, shipping details, and device data to improve our services and develop the app. The data will be used to provide shipping services, manage operations, and communicate with users. It will not be shared with third parties except when necessary and in compliance with laws. We ensure data protection through advanced and constantly updated security systems. Cookies are used to enhance performance, and users will be informed of any policy updates",
+  "chooseAction" : "Choose Action",
+  "callPhoneNumber" :"Call Phone Number",
+  "whatsapp": "WhatsApp",
+  "notification" :"Notifications"
 
 
 

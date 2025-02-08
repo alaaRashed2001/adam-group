@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "660882103875",
+    "project_id": "adamgriup-3b108",
+    "storage_bucket": "adamgriup-3b108.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660882103875:android:dbff264e3bea6e80d1bef6",
+        "android_client_info": {
+          "package_name": "com.example.adam_group"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-D6wSWEG85ixSPdneTeaSJ01lsZxwVPg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

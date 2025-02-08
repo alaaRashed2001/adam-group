@@ -4,7 +4,6 @@ import 'package:adam_group/Screens/Widgets/shipment_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -76,25 +75,28 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.paddingOf(context).left + 16,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             /// Swiper Section
             Container(
-              margin: EdgeInsets.symmetric(vertical: 6.h),
-              height: MediaQuery.of(context).size.height * 0.22,
+              margin: EdgeInsets.symmetric(
+                vertical: MediaQuery.paddingOf(context).top * 0.1,
+              ),
+              height: MediaQuery.sizeOf(context).height * 0.22,
               decoration: BoxDecoration(
-                color: Colors.black, // لون خلفية الـ Container
-                borderRadius:
-                    BorderRadius.circular(20), // تحديد الزوايا المستديرة
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(20),
                 boxShadow: const [
                   BoxShadow(
-                    color: AppColor.primaryColor, // ظل بلون ذهبي خفيف
-                    spreadRadius: 1, // مقدار انتشار الظل
-                    blurRadius: 7, // مقدار ضبابية الظل
-                    offset: Offset(0, 3), // إزاحة الظل (يمين/أسفل)
+                    color: AppColor.primaryColor,
+                    spreadRadius: 1,
+                    blurRadius: 7,
+                    offset: Offset(0, 3),
                   ),
                 ],
               ),
@@ -119,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 14),
+            SizedBox(height: MediaQuery.sizeOf(context).height * 0.02),
 
             /// Shipments Section
             Column(
@@ -130,24 +132,24 @@ class _HomeScreenState extends State<HomeScreen> {
                   AppLocalizations.of(context)!.shipments,
                   style: TextStyle(
                     color: color,
-                    fontSize: 20.sp,
+                    fontSize: MediaQuery.sizeOf(context).width * 0.05,
                     fontWeight: FontWeight.w700,
                     fontFamily: "cairoFonts",
                   ),
                 ),
-                const Divider(
+                Divider(
                   thickness: 2,
                   color: AppColor.primaryColor,
-                  // indent: 100,
-                  endIndent: 200,
-                )
+                  endIndent: MediaQuery.sizeOf(context).width * 0.4,
+                ),
               ],
             ),
 
-            /// ListView Section (Scrollable)
             Expanded(
               child: ListView.builder(
-                padding: EdgeInsets.symmetric(vertical: 8.h),
+                padding: EdgeInsets.symmetric(
+                  vertical: MediaQuery.paddingOf(context).bottom * 0.5,
+                ),
                 itemCount: shipments.length,
                 itemBuilder: (context, index) => ShipmentWidget(
                   title: shipments[index]['title'],

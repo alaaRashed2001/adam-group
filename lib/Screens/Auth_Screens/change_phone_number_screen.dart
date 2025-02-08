@@ -3,7 +3,6 @@ import 'package:adam_group/Widgets/custom_text_field.dart';
 import 'package:adam_group/Widgets/gradient_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChangePhoneNumberScreen extends StatefulWidget {
@@ -32,31 +31,32 @@ class _ChangePhoneNumberScreenState extends State<ChangePhoneNumberScreen> {
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          padding: EdgeInsets.symmetric(horizontal: MediaQuery.sizeOf(context).width * 0.04),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               Center(
                 child: Text(
                   AppLocalizations.of(context)!.changePhone,
                   style: TextStyle(
                     color: color,
-                    fontSize: 24.sp,
+                    fontSize: MediaQuery.sizeOf(context).width * 0.06,
                     fontFamily: "cairoFonts",
                   ),
                   textAlign: TextAlign.center,
                 ),
               ),
               SizedBox(
-                height: 45.h,
+                height: MediaQuery.sizeOf(context).height * 0.05,
               ),
 
-              /// New Mobile Number
+
               Text(
                 AppLocalizations.of(context)!.newMobile,
                 style: TextStyle(
                   color: color,
-                  fontSize: 16.sp,
+                  fontSize: MediaQuery.sizeOf(context).width * 0.045,
                   fontFamily: "cairoFonts",
                 ),
                 textAlign: TextAlign.center,
@@ -66,11 +66,12 @@ class _ChangePhoneNumberScreenState extends State<ChangePhoneNumberScreen> {
                 hint: "",
               ),
               SizedBox(
-                height: 30.h,
+                height: MediaQuery.sizeOf(context).height * 0.04,
               ),
 
+
               SizedBox(
-                height: 40.h,
+                height: MediaQuery.sizeOf(context).height * 0.05,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -78,12 +79,12 @@ class _ChangePhoneNumberScreenState extends State<ChangePhoneNumberScreen> {
                   GradientButton(
                     onPressed: () {},
                     text: AppLocalizations.of(context)!.save,
-                    horizontalPadding: 54,
+                    horizontalPadding: MediaQuery.sizeOf(context).width * 0.15,
                   ),
                   GradientButton(
                     onPressed: () {},
                     text: AppLocalizations.of(context)!.cancel,
-                    horizontalPadding: 54,
+                    horizontalPadding: MediaQuery.sizeOf(context).width * 0.15,
                   ),
                 ],
               ),

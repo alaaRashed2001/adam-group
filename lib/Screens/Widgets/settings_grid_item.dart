@@ -28,16 +28,19 @@ class SettingsGridItem extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(image),
-            //  const SizedBox(height: 8),
+            Image.asset(
+              image,
+              width: MediaQuery.sizeOf(context).width * 0.18,
+              height: MediaQuery.sizeOf(context).height * 0.12,
+            ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 6.w),
+              padding: EdgeInsets.symmetric(horizontal: 4.w),
               child: Text(
                 title,
                 maxLines: 1,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 14.sp,
+                  fontSize: 12.sp,
                   fontFamily: "cairoFonts",
                   overflow: TextOverflow.ellipsis,
                   fontWeight: FontWeight.bold,

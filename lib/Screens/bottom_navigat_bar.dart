@@ -1,4 +1,5 @@
 import 'package:adam_group/Consts/app_color.dart';
+import 'package:adam_group/Providers/lang_provider.dart';
 import 'package:adam_group/Providers/theme_provider.dart';
 import 'package:adam_group/Screens/App_Screens/home_screen.dart';
 import 'package:adam_group/Screens/App_Screens/profile_screen.dart';
@@ -51,6 +52,16 @@ class _BottomNavigateBarState extends State<BottomNavigateBar> {
           ),
         ),
         actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.language,
+              color: AppColor.primaryColor,
+            ),
+            onPressed: () {
+              Provider.of<LangProvider>(context, listen: false)
+                  .changeLanguage();
+            },
+          ),
           IconButton(
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(

@@ -1,6 +1,5 @@
 import 'package:adam_group/Screens/Widgets/settings_grid_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SettingsGrid extends StatelessWidget {
   final List<Map<String, dynamic>> settings;
@@ -10,13 +9,13 @@ class SettingsGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      shrinkWrap: true, // لتجنب overflow
+      shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      padding: EdgeInsets.symmetric(horizontal: MediaQuery.sizeOf(context).width * 0.04),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        crossAxisSpacing: 24.0,
-        mainAxisSpacing: 24.0,
+        crossAxisSpacing: MediaQuery.sizeOf(context).width * 0.06,
+        mainAxisSpacing: MediaQuery.sizeOf(context).height * 0.03,
       ),
       itemCount: settings.length,
       itemBuilder: (context, index) {

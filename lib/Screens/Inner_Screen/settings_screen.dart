@@ -24,6 +24,7 @@ class _SettingsScreenState extends State<SettingsScreen>
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final color = themeProvider.isDarkTheme ? Colors.white : Colors.black;
+
     final List<Map<String, dynamic>> settings = [
       {
         'title': AppLocalizations.of(context)!.updateInfo,
@@ -61,7 +62,7 @@ class _SettingsScreenState extends State<SettingsScreen>
         'title': AppLocalizations.of(context)!.privacyPolicy,
         'image': "assets/images/settings/privacy_policy.png",
         'action': (BuildContext context) {
-          // تنفيذ إجراء معين
+
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -113,11 +114,14 @@ class _SettingsScreenState extends State<SettingsScreen>
         },
       },
     ];
+
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+          padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.sizeOf(context).width * 0.04,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -125,14 +129,15 @@ class _SettingsScreenState extends State<SettingsScreen>
                 child: Text(
                   AppLocalizations.of(context)!.settings,
                   style: TextStyle(
-                      color: color,
-                      fontSize: 36.sp,
-                      fontFamily: "cairoFonts",
-                      fontWeight: FontWeight.w700),
+                    color: color,
+                    fontSize: 36.sp,
+                    fontFamily: "cairoFonts",
+                    fontWeight: FontWeight.w700,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(height: 32.h),
+              SizedBox(height: MediaQuery.sizeOf(context).height * 0.04),
               SettingsGrid(settings: settings),
             ],
           ),
@@ -150,7 +155,10 @@ class _SettingsScreenState extends State<SettingsScreen>
       ),
       builder: (BuildContext context) {
         return Container(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+          padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.sizeOf(context).width * 0.04,
+            vertical: MediaQuery.sizeOf(context).height * 0.02,
+          ),
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [AppColor.startColor, AppColor.endColor],
@@ -163,8 +171,8 @@ class _SettingsScreenState extends State<SettingsScreen>
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                width: 50,
-                height: 5,
+                width: MediaQuery.sizeOf(context).width * 0.1,
+                height: MediaQuery.sizeOf(context).height * 0.01,
                 margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: AppColor.secondaryColor,
@@ -172,7 +180,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                 ),
               ),
               Text(
-                'اختر الإجراء',
+                AppLocalizations.of(context)!.chooseAction,
                 style: TextStyle(
                   fontSize: 20.sp,
                   fontWeight: FontWeight.bold,
@@ -180,15 +188,15 @@ class _SettingsScreenState extends State<SettingsScreen>
                   color: AppColor.borderColor,
                 ),
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: MediaQuery.sizeOf(context).height * 0.03),
               ListTile(
                 leading: const CircleAvatar(
                   backgroundColor: AppColor.primaryColor,
                   child: Icon(Icons.phone, color: Colors.white),
                 ),
-                title: const Text(
-                  'اتصال برقم الجوال',
-                  style: TextStyle(
+                title:  Text(
+                  AppLocalizations.of(context)!.callPhoneNumber,
+                  style: const TextStyle(
                     fontSize: 18,
                     color: AppColor.borderColor,
                     fontFamily: "cairoFonts",
@@ -209,9 +217,9 @@ class _SettingsScreenState extends State<SettingsScreen>
                   backgroundColor: AppColor.primaryColor,
                   child: Icon(Icons.add_ic_call_outlined, color: Colors.white),
                 ),
-                title: const Text(
-                  'الواتساب',
-                  style: TextStyle(
+                title:  Text(
+                  AppLocalizations.of(context)!.whatsapp,
+                  style: const TextStyle(
                     fontSize: 18,
                     color: AppColor.borderColor,
                     fontFamily: "cairoFonts",
@@ -219,7 +227,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                 ),
                 onTap: () async {
                   final Uri whatsappUri =
-                      Uri.parse('https://wa.me/972566008007');
+                  Uri.parse('https://wa.me/972566008007');
                   if (await canLaunchUrl(whatsappUri)) {
                     await launchUrl(
                       whatsappUri,
