@@ -1,14 +1,18 @@
+import 'dart:convert';
+
+import 'package:adam_group/Models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum SpKeys {
-  theme,
-  lang,
-  token,
-}
-
 class SharedPreferencesController {
+  static const String themeKey = 'theme';
+  static const String langKey = 'lang';
+  static const String loggedIn = 'loggedIn';
+  static const String tokenKey = 'token';
+  static const String userModelKey = 'user_model';
+  static const String fcm = 'fcm';
+
   static final SharedPreferencesController _sharedPrefControllerObj =
-  SharedPreferencesController._sharedPrefPrivateConstructor();
+      SharedPreferencesController._sharedPrefPrivateConstructor();
 
   SharedPreferencesController._sharedPrefPrivateConstructor();
 
@@ -24,27 +28,53 @@ class SharedPreferencesController {
 
   /// Save Theme
   Future<void> setTheme(bool isDarkTheme) async {
-    await _sharedPrefLibObj.setBool(SpKeys.theme.name, isDarkTheme);
+    await _sharedPrefLibObj.setBool(themeKey, isDarkTheme);
   }
 
-  bool get getTheme => _sharedPrefLibObj.getBool(SpKeys.theme.name) ?? false;
+  bool get getTheme => _sharedPrefLibObj.getBool(themeKey) ?? false;
 
   /// Save Language
   Future<void> setLanguage(String language) async {
-    await _sharedPrefLibObj.setString(SpKeys.lang.name, language);
+    await _sharedPrefLibObj.setString(langKey, language);
   }
 
-  String get getLanguage => _sharedPrefLibObj.getString(SpKeys.lang.name) ?? 'ar';
+  String get getLanguage => _sharedPrefLibObj.getString(langKey) ?? 'ar';
 
   /// Save Token
   Future<void> setToken(String token) async {
-    await _sharedPrefLibObj.setString(SpKeys.token.name, token);
+    await _sharedPrefLibObj.setBool(loggedIn, true);
+    await _sharedPrefLibObj.setString(tokenKey, 'Bearer $token');
   }
 
-  String? get getToken => _sharedPrefLibObj.getString(SpKeys.token.name);
+  String? get getToken => _sharedPrefLibObj.getString(tokenKey);
 
   /// Remove Token
   Future<void> removeToken() async {
-    await _sharedPrefLibObj.remove(SpKeys.token.name);
+    await _sharedPrefLibObj.remove(tokenKey);
+    await _sharedPrefLibObj.remove(userModelKey);
   }
+
+  /// Check if user is logged in
+  bool isLoggedIn() {
+    return _sharedPrefLibObj.containsKey(tokenKey) &&
+        _sharedPrefLibObj.getBool(loggedIn) == true;
+  }
+
+  /// User Model
+  Future<void> saveUserModel(UserModel user) async {
+    await _sharedPrefLibObj.setString(userModelKey, jsonEncode(user.toJson()));
+  }
+
+  UserModel? get userModel {
+    var data = _sharedPrefLibObj.getString(userModelKey);
+    if (data == null) return null;
+    return UserModel.fromJson(jsonDecode(data));
+  }
+
+  /// Save FCM Token
+  Future<void> setFCM(String token) async {
+    await _sharedPrefLibObj.setString(fcm, token);
+  }
+
+  String? get getFCM => _sharedPrefLibObj.getString(fcm);
 }

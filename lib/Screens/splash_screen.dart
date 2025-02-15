@@ -1,7 +1,12 @@
+import 'package:adam_group/Extensions/sized_box_extension.dart';
+import 'package:adam_group/Firebase/Firebase_Messaging/fb_notifications.dart';
+import 'package:adam_group/Helpers/navigator_helper.dart';
+import 'package:adam_group/Providers/auth_provider.dart';
+import 'package:adam_group/Screens/bottom_navigat_bar.dart';
 import 'package:adam_group/Screens/welcom_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -10,17 +15,23 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen> with NavigatorHelper, FbNotifications {
   Future<void> navigate() async {
+    AuthProvider auth = Provider.of<AuthProvider>(context, listen: false);
     Future.delayed(const Duration(seconds: 6), () {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => const WelcomeScreen(),
-      ));
+      jump(
+        context,
+        screen:
+            auth.isLoggedIn ? const BottomNavigateBar() : const WelcomeScreen(),
+        replace: true,
+      );
     });
   }
 
   Future<void> _init() async {
+    callNotifications;
     await navigate();
+
   }
 
   @override
@@ -34,16 +45,14 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(
-            height: 62.h,
-          ),
+
+           62.height,
+
           Image.asset(
             'assets/images/logo.png',
             width: 380,
           ),
-          SizedBox(
-            height: 32.h,
-          ),
+          32.height,
           Lottie.asset(
             'assets/lottie/loader.json',
             width: 165,

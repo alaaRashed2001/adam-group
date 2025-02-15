@@ -1,8 +1,12 @@
 import 'package:adam_group/Consts/theme_data.dart';
+import 'package:adam_group/Firebase/Firebase_Messaging/fb_notifications.dart';
+import 'package:adam_group/Providers/auth_provider.dart';
 import 'package:adam_group/Providers/theme_provider.dart';
+import 'package:adam_group/Screens/App_Screens/places_screen.dart';
 import 'package:adam_group/Shared_Preferences/shared_prefrences.dart';
 import 'package:adam_group/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/services.dart';
@@ -15,9 +19,17 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPreferencesController().initSharedPreferences();
   await ScreenUtil.ensureScreenSize();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FbNotifications.initNotifications();
+  FirebaseMessaging.instance.getToken().then((value) async {
+    print('Fcm ==> $value');
+
+    await SharedPreferencesController().setFCM(value ?? '');
+  });
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]).then((_) {
@@ -33,6 +45,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
         ChangeNotifierProvider<LangProvider>(
           create: (context) => LangProvider(),
@@ -45,6 +58,7 @@ class MyApp extends StatelessWidget {
               return MaterialApp(
                 title: 'Recipe Finder',
                 debugShowCheckedModeBanner: false,
+
                 theme: Styles.themeData(isDarkTheme: false, context: context),
                 darkTheme:
                     Styles.themeData(isDarkTheme: true, context: context),
@@ -57,6 +71,7 @@ class MyApp extends StatelessWidget {
                   Locale('en'),
                 ],
                 locale: Locale(Provider.of<LangProvider>(context).lang),
+                // home: const PlacesScreen(),
                 home: const SplashScreen(),
               );
             });

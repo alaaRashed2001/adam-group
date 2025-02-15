@@ -1,7 +1,9 @@
 import 'package:adam_group/Consts/app_color.dart';
+import 'package:adam_group/Extensions/sized_box_extension.dart';
+import 'package:adam_group/Helpers/navigator_helper.dart';
 import 'package:adam_group/Providers/lang_provider.dart';
 import 'package:adam_group/Providers/theme_provider.dart';
-import 'package:adam_group/Screens/Auth_Screens/login_screen.dart';
+import 'package:adam_group/Screens/App_Screens/places_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +17,7 @@ class WelcomeScreen extends StatefulWidget {
   State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
+class _WelcomeScreenState extends State<WelcomeScreen> with NavigatorHelper {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -26,17 +28,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           Center(
             child: Column(
               children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.1, // استخدام MediaQuery للحصول على ارتفاع مناسب
-                ),
-                // الشعار
+                (MediaQuery.of(context).size.height * 0.1).height,
                 Image.asset(
                   'assets/images/logo.png',
-                  width: MediaQuery.of(context).size.width * 0.8, // استخدام MediaQuery للحصول على عرض مناسب
+                  width: MediaQuery.of(context).size.width * 0.8,
                 ),
                 Text(
-                  AppLocalizations.of(context)!
-                      .aWorldOfInnovationAndCreativity,
+                  AppLocalizations.of(context)!.aWorldOfInnovationAndCreativity,
                   style: TextStyle(
                     color: color,
                     fontSize: 18.sp,
@@ -44,7 +42,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 10.h),
+                10.height,
                 Text(
                   AppLocalizations.of(context)!.ourServicesAreFastAndReliable,
                   style: TextStyle(
@@ -57,26 +55,23 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ],
             ),
           ),
-          // جزء copper يغطي العرض الكامل ويكون ثابتًا في الأسفل
           Positioned(
-            bottom: MediaQuery.of(context).padding.bottom, // تحديد المسافة من الأسفل بناءً على الحواف
+            bottom: MediaQuery.of(context).padding.bottom,
             left: 0,
             right: 0,
             child: Image.asset(
               themeProvider.isDarkTheme
                   ? "assets/images/copper_dark.png"
                   : "assets/images/copper_light.png",
-              width: MediaQuery.of(context).size.width, // تأكد من أن الصورة تأخذ العرض الكامل
+              width: MediaQuery.of(context).size.width,
             ),
           ),
           Positioned(
-            bottom: MediaQuery.of(context).size.height * 0.05, // تحديد المسافة من الأسفل بناءً على الحجم
+            bottom: MediaQuery.of(context).size.height * 0.05,
             right: 10,
             child: InkWell(
               onTap: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => const LoginScreen(),
-                ));
+                jump(context, screen: const PlacesScreen(), replace: true);
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -109,6 +104,5 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         ],
       ),
     );
-
   }
 }

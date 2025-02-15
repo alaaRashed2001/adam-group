@@ -1,4 +1,8 @@
+import 'package:adam_group/API/Api_Controllers/auth_api_controller.dart';
 import 'package:adam_group/Consts/app_color.dart';
+import 'package:adam_group/Extensions/sized_box_extension.dart';
+import 'package:adam_group/Helpers/data_checker_helper.dart';
+import 'package:adam_group/Helpers/snackbar.dart';
 import 'package:adam_group/Providers/theme_provider.dart';
 import 'package:adam_group/Widgets/custom_text_field.dart';
 import 'package:adam_group/Widgets/gradient_button.dart';
@@ -14,21 +18,27 @@ class EditProfileScreen extends StatefulWidget {
   State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
-class _EditProfileScreenState extends State<EditProfileScreen> {
+class _EditProfileScreenState extends State<EditProfileScreen>  with SnackBarHelper, DataCheckerHelper {
   late final TextEditingController nameEditingController;
 
   late final TextEditingController phoneEditingController;
 
   late final TextEditingController addressEditingController;
 
+  late final TextEditingController emailEditingController;
+
+  late final TextEditingController passworsEditingController;
+
   @override
   void initState() {
     nameEditingController = TextEditingController();
     phoneEditingController = TextEditingController();
     addressEditingController = TextEditingController();
+    emailEditingController = TextEditingController();
+    passworsEditingController = TextEditingController();
     super.initState();
   }
-
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -38,7 +48,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: MediaQuery.sizeOf(context).width * 0.04), // الهوامش الديناميكية
+          padding: EdgeInsets.symmetric(horizontal: MediaQuery.sizeOf(context).width * 0.04),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -53,43 +63,38 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.03, // المسافة بين العنوان والعناصر
-              ),
-              Center(
-                child: Container(
-                  padding: const EdgeInsets.all(5),
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    // color: Colors.grey,
-                  ),
-                  child: Stack(
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: AppColor.borderColor,
-                        radius: MediaQuery.sizeOf(context).width * 0.2,
-                        backgroundImage: const AssetImage('assets/images/avatar.png'),
-                      ),
-                      Positioned(
-                        right: 0,
-                        bottom: 0,
-                        child: InkWell(
-                          onTap: () {
-                            // فعل تحميل الصورة
-                          },
-                          child: Image.asset(
-                            'assets/images/upload_avatar.png',
-                            width: MediaQuery.sizeOf(context).width * 0.12,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.03,
-              ),
+            (MediaQuery.sizeOf(context).height * 0.05).height,
+              // Center(
+              //   child: Container(
+              //     padding: const EdgeInsets.all(5),
+              //     decoration: const BoxDecoration(
+              //       shape: BoxShape.circle,
+              //       // color: Colors.grey,
+              //     ),
+              //     child: Stack(
+              //       children: [
+              //         CircleAvatar(
+              //           backgroundColor: AppColor.borderColor,
+              //           radius: MediaQuery.sizeOf(context).width * 0.2,
+              //           backgroundImage: const AssetImage('assets/images/avatar.png'),
+              //         ),
+              //         Positioned(
+              //           right: 0,
+              //           bottom: 0,
+              //           child: InkWell(
+              //             onTap: () {
+              //             },
+              //             child: Image.asset(
+              //               'assets/images/upload_avatar.png',
+              //               width: MediaQuery.sizeOf(context).width * 0.12,
+              //             ),
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              // (MediaQuery.sizeOf(context).height * 0.03).height,
               Column(
                 children: [
                   Row(
@@ -107,9 +112,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      SizedBox(
-                        width: MediaQuery.sizeOf(context).width * 0.02,
-                      ),
+                      (MediaQuery.sizeOf(context).width * 0.02).width,
                       Expanded(
                         flex: 3,
                         child: CustomTextInputField(
@@ -132,9 +135,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      SizedBox(
-                        width: MediaQuery.sizeOf(context).width * 0.02,
-                      ),
+                      (MediaQuery.sizeOf(context).width * 0.02).width,
                       Expanded(
                         flex: 3,
                         child: CustomTextInputField(
@@ -157,9 +158,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      SizedBox(
-                        width: MediaQuery.sizeOf(context).width * 0.02,
-                      ),
+                      (MediaQuery.sizeOf(context).width * 0.02).width,
                       Expanded(
                         flex: 3,
                         child: CustomTextInputField(
@@ -169,14 +168,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                 ],
               ),
-              SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.05,
-              ),
+              (MediaQuery.sizeOf(context).height * 0.05).height,
               Center(
                 child: GradientButton(
-                  onPressed: () {
-                    /// Update Info
-                  },
+                  onPressed: () async => await _performUpdateUserInfo(),
                   text: AppLocalizations.of(context)!.save,
                   horizontalPadding: MediaQuery.sizeOf(context).width * 0.1,
                 ),
@@ -187,4 +182,51 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),
     );
   }
+  Future<void> _performUpdateUserInfo() async {
+    if (_checkData()) {
+      await _updateUserInfo();
+    }
+  }
+
+  Future<void> _updateUserInfo() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var result = await AuthApiController().updateUserInfo(
+        context,
+        nameEditingController.text,
+        phoneEditingController.text,
+        emailEditingController.text,
+        passworsEditingController.text,
+      //  addressEditingController.text,
+      );
+
+      if (result) {
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      ///
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  bool _checkData() =>
+      checkText(
+        context,
+        text: nameEditingController.text,
+        message:  AppLocalizations.of(context)!.newNameUpdate,
+      ) &&
+          checkText(
+            context,
+            text: phoneEditingController.text,
+            message: AppLocalizations.of(context)!.newPhoneNumberUpdate,
+          ) &&
+          checkText(
+            context,
+            text: addressEditingController.text,
+            message: AppLocalizations.of(context)!.newAddressUpdate,
+          );
 }

@@ -1,3 +1,7 @@
+import 'package:adam_group/API/Api_Controllers/auth_api_controller.dart';
+import 'package:adam_group/Extensions/sized_box_extension.dart';
+import 'package:adam_group/Helpers/data_checker_helper.dart';
+import 'package:adam_group/Helpers/snackbar.dart';
 import 'package:adam_group/Providers/theme_provider.dart';
 import 'package:adam_group/Widgets/custom_text_field.dart';
 import 'package:adam_group/Widgets/gradient_button.dart';
@@ -13,7 +17,8 @@ class ChangePhoneNumberScreen extends StatefulWidget {
       _ChangePhoneNumberScreenState();
 }
 
-class _ChangePhoneNumberScreenState extends State<ChangePhoneNumberScreen> {
+class _ChangePhoneNumberScreenState extends State<ChangePhoneNumberScreen>
+    with SnackBarHelper, DataCheckerHelper {
   late final TextEditingController mobileEditingController;
 
   @override
@@ -22,6 +27,7 @@ class _ChangePhoneNumberScreenState extends State<ChangePhoneNumberScreen> {
     super.initState();
   }
 
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -31,11 +37,11 @@ class _ChangePhoneNumberScreenState extends State<ChangePhoneNumberScreen> {
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: MediaQuery.sizeOf(context).width * 0.04),
+          padding: EdgeInsets.symmetric(
+              horizontal: MediaQuery.sizeOf(context).width * 0.04),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               Center(
                 child: Text(
                   AppLocalizations.of(context)!.changePhone,
@@ -47,11 +53,7 @@ class _ChangePhoneNumberScreenState extends State<ChangePhoneNumberScreen> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.05,
-              ),
-
-
+              (MediaQuery.sizeOf(context).height * 0.05).height,
               Text(
                 AppLocalizations.of(context)!.newMobile,
                 style: TextStyle(
@@ -65,24 +67,21 @@ class _ChangePhoneNumberScreenState extends State<ChangePhoneNumberScreen> {
                 controller: mobileEditingController,
                 hint: "",
               ),
-              SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.04,
-              ),
-
-
-              SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.05,
-              ),
+              (MediaQuery.sizeOf(context).height * 0.09).height,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   GradientButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      await performChangeMobileNumber();
+                    },
                     text: AppLocalizations.of(context)!.save,
                     horizontalPadding: MediaQuery.sizeOf(context).width * 0.15,
                   ),
                   GradientButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     text: AppLocalizations.of(context)!.cancel,
                     horizontalPadding: MediaQuery.sizeOf(context).width * 0.15,
                   ),
@@ -94,4 +93,38 @@ class _ChangePhoneNumberScreenState extends State<ChangePhoneNumberScreen> {
       ),
     );
   }
+
+  Future<void> performChangeMobileNumber() async {
+    if (_checkData()) {
+      await changeMobileNumber();
+    }
+  }
+
+  Future<void> changeMobileNumber() async {
+    {
+      setState(() {
+        isLoading = true;
+      });
+
+      try {
+        bool status = await AuthApiController()
+            .changeMobile(context, mobileEditingController.text);
+        if (status) {
+          Navigator.of(context).pop();
+        }
+      } catch (e) {
+        print(e.toString());
+      }
+    }
+
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  bool _checkData() => checkText(
+        context,
+        text: mobileEditingController.text,
+        message: AppLocalizations.of(context)!.newPhoneNumberUpdate,
+      );
 }

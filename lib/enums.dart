@@ -1,0 +1,1 @@
+enum LauncherType {link, email, mobile}

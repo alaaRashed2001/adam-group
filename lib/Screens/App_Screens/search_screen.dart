@@ -1,4 +1,5 @@
 import 'package:adam_group/Consts/app_color.dart';
+import 'package:adam_group/Extensions/sized_box_extension.dart';
 import 'package:adam_group/Providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -39,7 +40,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       fontFamily: "cairoFonts",
                     ),
                   ),
-                  SizedBox(height: MediaQuery.sizeOf(context).height * 0.005),
+                  ( MediaQuery.sizeOf(context).height * 0.005).height,
                   Container(
                     height: 2,
                     width: MediaQuery.sizeOf(context).width * 0.4,
@@ -56,7 +57,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: MediaQuery.sizeOf(context).height * 0.03),
+              ( MediaQuery.sizeOf(context).height * 0.03).height,
 
 
               TextField(
@@ -84,7 +85,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   print('Search query: $value');
                 },
               ),
-              SizedBox(height: MediaQuery.sizeOf(context).height * 0.1),
+              ( MediaQuery.sizeOf(context).height * 0.1).height,
 
 
               Center(

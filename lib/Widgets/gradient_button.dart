@@ -6,12 +6,14 @@ class GradientButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final double horizontalPadding;
+  final double textSize;
 
   const GradientButton({
     super.key,
     required this.text,
     required this.onPressed,
     this.horizontalPadding = 34,
+    this.textSize = 24.0,
   });
 
   @override
@@ -47,7 +49,7 @@ class GradientButton extends StatelessWidget {
           text,
           style: TextStyle(
             color: Colors.black,
-            fontSize: 24.0.sp,
+            fontSize: textSize,
             fontFamily: "cairoFonts",
             fontWeight: FontWeight.w300,
           ),

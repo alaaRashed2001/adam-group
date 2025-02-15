@@ -20,6 +20,9 @@
       "newMobile":"رقم الموبايل الجديد",
       "confirmPassword":"تأكيد كلمة المرور",
       "shipments":"الشحنات",
+      "shipment":"شحن",
+      "full":"كلي",
+      "partial":"جزئي",
       "download":"تحميل",
       "share":"مشاركة",
       "save":"حفظ",
@@ -40,7 +43,17 @@
       "chooseAction" :"اختر الاجراء",
       "callPhoneNumber" :"اتصال برقم الجوال",
       "whatsapp": "الواتساب",
-      "notification" :"الاشعارات"
+      "notification" :"الاشعارات",
+        "phoneNumberCannotEmpty" :"يجب إدخال رقم الجوال، ولا يمكن ترك هذا الحقل فارغًا.",
+        "passwordCannotEmpty" :"يجب إدخال كلمة المرور، ولا يمكن ترك هذا الحقل فارغًا.",
+        "newPhoneNumberUpdate" :"يرجى إدخال رقم الجوال الجديد لتحديثه.",
+        "newNameUpdate" :"يرجى إدخال الاسم الجديد لتحديثه.",
+        "newAddressUpdate" :"يرجى إدخال العنوان الحالي لتحديثه.",
+        "currentPasswordUpdate" :"يرجى إدخال كلمة المرور الحالية لإتمام عملية التحديث.",
+        "newPasswordToSave" :"يرجى إدخال كلمة المرور الجديدة لحفظها.",
+        "confirmPasswordMatches" :"يرجى تأكيد كلمة المرور الجديدة لضمان تطابقها.",
+        "newPasswordMatchConfirmedPassword" :"يجب أن تتطابق كلمة المرور الجديدة مع كلمة المرور المؤكدة.",
+        "downloadSuccessfully" :"تمت عملية التنزيل بنجاح"
 
 
 }

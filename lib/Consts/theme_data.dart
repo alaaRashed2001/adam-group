@@ -6,6 +6,7 @@ class Styles {
   static ThemeData themeData(
       {required bool isDarkTheme, required BuildContext context}) {
     return ThemeData(
+      fontFamily: 'cairoFonts',
       scaffoldBackgroundColor: isDarkTheme
           ? AppColor.darkScaffoldColor
           : AppColor.lightScaffoldColor,

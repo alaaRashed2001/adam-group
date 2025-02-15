@@ -1,5 +1,5 @@
-package com.example.adam_group
+package com.adam.adam_group
 
-import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.android.FlutterFragmentActivity
 
-class MainActivity: FlutterActivity()
+class MainActivity: FlutterFragmentActivity()

@@ -19,6 +19,9 @@
   "newMobile":"New Mobile Number",
   "confirmPassword":"Confirm Password",
   "shipments":"Shipments",
+  "shipment":"Shipment",
+  "full":"Full",
+  "partial":"Partial",
   "download":"Download",
   "share":"Share",
   "save":"Save",
@@ -39,7 +42,17 @@
   "chooseAction" : "Choose Action",
   "callPhoneNumber" :"Call Phone Number",
   "whatsapp": "WhatsApp",
-  "notification" :"Notifications"
+  "notification" :"Notifications",
+  "phoneNumberCannotEmpty" :"The phone number is required and cannot be left empty.",
+  "passwordCannotEmpty" :"The password is required and cannot be left empty.",
+  "newPhoneNumberUpdate" :"Please enter the new phone number to update it.",
+  "newNameUpdate" :"Please enter the new Name to update it.",
+  "newAddressUpdate" :"Please enter the current address to update it.",
+  "currentPasswordUpdate" :"Please enter your current password to proceed with the update.",
+  "newPasswordToSave" :"Please enter the new password to save it.",
+  "confirmPasswordMatches" :"Please confirm the new password to ensure it matches.",
+  "newPasswordMatchConfirmedPassword" :"The new password must match the confirmed password.",
+  "downloadSuccessfully" :"The download has been completed successfully."
 
 
 
