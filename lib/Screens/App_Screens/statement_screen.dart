@@ -7,7 +7,6 @@ import 'package:adam_group/Helpers/snackbar.dart';
 import 'package:adam_group/Models/accoun_statment_model.dart';
 import 'package:adam_group/Providers/auth_provider.dart';
 import 'package:adam_group/Widgets/gradient_button.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +24,6 @@ class _StatementScreenState extends State<StatementScreen>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _init;
   }
@@ -53,41 +51,67 @@ class _StatementScreenState extends State<StatementScreen>
     }
   }
 
+  Widget _image(screenHeight) {
+    String path = 'assets/images/files/';
+
+    String link = statements.first.publicUrl ?? '';
+    String ext = getFileExtension(link);
+    if (ext.contains('xlsx')) {
+      path += 'exel.png';
+      return Image.asset(path);
+    } else if (ext.contains('pdf')) {
+      path += 'pdf.png';
+      return Image.asset(path);
+    } else if (ext.contains('docx')) {
+      path += 'word.png';
+      return Image.asset(path);
+    }
+
+    return Image.network(
+      link,
+      height: screenHeight * 0.4,
+      fit: BoxFit.cover,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.sizeOf(context).width;
     final screenHeight = MediaQuery.sizeOf(context).height;
 
     return Scaffold(
-      body: !_loading
-          ? SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Text(
-                        AppLocalizations.of(context)!.statement,
-                        style: TextStyle(
-                          color: AppColor.primaryColor,
-                          fontSize: screenWidth * 0.06,
-                          fontFamily: "cairoFonts",
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    (screenHeight * 0.03).height,
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: screenWidth * 0.06,
-                        vertical: screenHeight * 0.08,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: AppColor.borderColor),
-                        borderRadius: BorderRadius.circular(screenWidth * 0.05),
-                      ),
-                      child: ClipRRect(
+        body: SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Text(
+                AppLocalizations.of(context)!.statement,
+                style: TextStyle(
+                  color: AppColor.primaryColor,
+                  fontSize: screenWidth * 0.06,
+                  fontFamily: "cairoFonts",
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            (screenHeight * 0.03).height,
+            Center(
+              child: Container(
+                height: 450,
+                width:330,
+                padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.06,
+                  vertical: screenHeight * 0.08,
+                ),
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColor.borderColor),
+                  borderRadius: BorderRadius.circular(screenWidth * 0.05),
+                ),
+                child: !_loading
+                    ? statements.isNotEmpty ? ClipRRect(
                         borderRadius: BorderRadius.circular(screenWidth * 0.06),
                         child: Container(
                           decoration: BoxDecoration(
@@ -95,36 +119,32 @@ class _StatementScreenState extends State<StatementScreen>
                             borderRadius:
                                 BorderRadius.circular(screenWidth * 0.05),
                           ),
-                          child: Image.network(
-                            statements.first.publicUrl ?? '',
-                            height: screenHeight * 0.4,
-                            fit: BoxFit.cover,
-                          ),
+                          child: _image(screenHeight),
                         ),
+                      ) : Center(child: Image.asset('assets/images/noData.png'),)
+                    : const Center(
+                        child: CircularProgressIndicator(color: AppColor.primaryColor,),
                       ),
-                    ),
-                    (screenHeight * 0.05).height,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        GradientButton(
-                          text: AppLocalizations.of(context)!.download,
-                          onPressed: () async => await _download(),
-                        ),
-                        GradientButton(
-                          text: AppLocalizations.of(context)!.share,
-                          onPressed: () async => await _share(),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
               ),
-            )
-          : const Center(
-              child: CircularProgressIndicator(),
             ),
-    );
+            (screenHeight * 0.05).height,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                GradientButton(
+                  text: AppLocalizations.of(context)!.download,
+                  onPressed: () async => await _download(),
+                ),
+                GradientButton(
+                  text: AppLocalizations.of(context)!.share,
+                  onPressed: () async => await _share(),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ));
   }
 
   Future<void> _download() async {

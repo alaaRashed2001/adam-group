@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:adam_group/API/Api_Controllers/ad_api_controller.dart';
 import 'package:adam_group/API/Api_Controllers/place_api_controller.dart';
 import 'package:adam_group/Consts/app_color.dart';
@@ -29,8 +31,12 @@ class _PlacesScreenState extends State<PlacesScreen> with NavigatorHelper {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+
+    // Timer.periodic(const Duration(minutes: 1), (timer) {
+    //   setState(() {});
+    // });
+
     _init;
   }
 
@@ -63,6 +69,18 @@ class _PlacesScreenState extends State<PlacesScreen> with NavigatorHelper {
     }
   }
 
+  // String getGreeting(BuildContext context) {
+  //   int hour = DateTime.now().hour;
+  //
+  //   if (hour >= 5 && hour < 12) {
+  //     return AppLocalizations.of(context)!.goodMorning;
+  //   } else if (hour >= 12 && hour < 18) {
+  //     return AppLocalizations.of(context)!.goodEvening;
+  //   } else {
+  //     return AppLocalizations.of(context)!.goodNight;
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -71,9 +89,9 @@ class _PlacesScreenState extends State<PlacesScreen> with NavigatorHelper {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: ()=>      Provider.of<ThemeProvider>(context, listen: false).toggleTheme(),
-
-          icon:  Icon(
+          onPressed: () =>
+              Provider.of<ThemeProvider>(context, listen: false).toggleTheme(),
+          icon: Icon(
             Provider.of<ThemeProvider>(context).isDarkTheme
                 ? Icons.dark_mode
                 : Icons.light_mode,
@@ -81,9 +99,10 @@ class _PlacesScreenState extends State<PlacesScreen> with NavigatorHelper {
             size: 26,
           ),
         ),
-        title: const Text(
-          "صباح الخير ",
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.welcome,
+         // getGreeting(context),
+          style: const TextStyle(
             // fontSize: 12,
             fontFamily: "cairoFonts",
           ),
@@ -121,13 +140,13 @@ class _PlacesScreenState extends State<PlacesScreen> with NavigatorHelper {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                       'اماكن في الصين',
-                      //  ' اماكن في ${places.first.city}'
+                        AppLocalizations.of(context)!.placesChina,
+                        //  ' اماكن في ${places.first.city}'
                         style: TextStyle(
                           color: color,
                           fontSize: MediaQuery.sizeOf(context).width * 0.05,
                           fontWeight: FontWeight.w700,
-                          fontFamily: "cairoFonts",
+                          fontFamily: "almaraiFonts",
                         ),
                       ),
                       Divider(

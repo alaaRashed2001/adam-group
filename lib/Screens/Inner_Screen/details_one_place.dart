@@ -1,5 +1,4 @@
 import 'package:adam_group/API/Api_Controllers/place_api_controller.dart';
-import 'package:adam_group/Consts/app_color.dart';
 import 'package:adam_group/Extensions/sized_box_extension.dart';
 import 'package:adam_group/Helpers/out_app_helper.dart';
 import 'package:adam_group/Helpers/snackbar.dart';
@@ -23,7 +22,7 @@ class _DetailsOnePlaceState extends State<DetailsOnePlace>
     with SnackBarHelper, OutAppHelper {
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
     _init;
   }
@@ -73,7 +72,7 @@ class _DetailsOnePlaceState extends State<DetailsOnePlace>
                             fontSize: 16.sp,
                             color: color,
                             fontWeight: FontWeight.bold,
-                            fontFamily: "cairoFonts",
+                            fontFamily: "almaraiFonts",
                           ),
                         ),
                         (6.h).height,
@@ -124,24 +123,8 @@ class _DetailsOnePlaceState extends State<DetailsOnePlace>
                                       color: color,
                                       fontFamily: "cairoFonts",
                                     ),
-                                    maxLines: isShowMore ? 3 : null,
-                                    overflow: TextOverflow.fade,
-                                  ),
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  setState(() {
-                                    isShowMore = !isShowMore;
-                                  });
-                                },
-                                child: Center(
-                                  child: Text(
-                                    isShowMore ? "Show more" : "Show less",
-                                    style: const TextStyle(
-                                        fontSize: 12,
-                                        color: AppColor.primaryColor),
-                                    textAlign: TextAlign.center,
+                                  //  maxLines: isShowMore ? 3 : null,
+                                   // overflow: TextOverflow.fade,
                                   ),
                                 ),
                               ),

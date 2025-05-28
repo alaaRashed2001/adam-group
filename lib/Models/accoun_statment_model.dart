@@ -36,15 +36,4 @@ class StatementModel {
     publicUrl = json['public_url'];
   }
 
-  // Map<String, dynamic> toJson() {
-  //   final Map<String, dynamic> data = new Map<String, dynamic>();
-  //   data['id'] = this.id;
-  //   data['file_name'] = this.fileName;
-  //   data['file_path'] = this.filePath;
-  //   data['user_id'] = this.userId;
-  //   data['created_at'] = this.createdAt;
-  //   data['updated_at'] = this.updatedAt;
-  //   data['public_url'] = this.publicUrl;
-  //   return data;
-  // }
 }

@@ -4,6 +4,7 @@ import 'package:adam_group/Helpers/navigator_helper.dart';
 import 'package:adam_group/Providers/auth_provider.dart';
 import 'package:adam_group/Screens/bottom_navigat_bar.dart';
 import 'package:adam_group/Screens/welcom_screen.dart';
+import 'package:adam_group/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -54,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen> with NavigatorHelper, FbNot
           ),
           32.height,
           Lottie.asset(
-            'assets/lottie/loader.json',
+            Assets.lottieLoader,
             width: 165,
             height: 188,
           ),

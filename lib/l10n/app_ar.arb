@@ -53,7 +53,12 @@
         "newPasswordToSave" :"يرجى إدخال كلمة المرور الجديدة لحفظها.",
         "confirmPasswordMatches" :"يرجى تأكيد كلمة المرور الجديدة لضمان تطابقها.",
         "newPasswordMatchConfirmedPassword" :"يجب أن تتطابق كلمة المرور الجديدة مع كلمة المرور المؤكدة.",
-        "downloadSuccessfully" :"تمت عملية التنزيل بنجاح"
+        "downloadSuccessfully" :"تمت عملية التنزيل بنجاح",
+        "fileOpenedSuccessfully" :"تم فتح الملف بنجاح",
+        "welcome" :"اهلا و سهلا",
+        "placesChina" :"اماكن في الصين",
+        "showDetails" :"عرض التفاصيل",
+        "guideChina" :"دليلك في الصين"
 
 
 }

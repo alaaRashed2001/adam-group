@@ -53,7 +53,7 @@ class PlaceModel {
     imageName = json['image_name'];
     imagePath = json['image_path'];
     description = json['description'];
-    location = json['location'];
+    location = json['location_url'];
     city = json['city'];
     country = json['country'];
     createdAt = json['created_at'];
@@ -68,7 +68,7 @@ class PlaceModel {
     data['image_name'] = this.imageName;
     data['image_path'] = this.imagePath;
     data['description'] = this.description;
-    data['location'] = this.location;
+    data['location_url'] = this.location;
     data['city'] = this.city;
     data['country'] = this.country;
     data['created_at'] = this.createdAt;

@@ -1,5 +1,4 @@
 import 'package:adam_group/Consts/app_color.dart';
-import 'package:adam_group/Consts/temp.dart';
 import 'package:adam_group/Extensions/sized_box_extension.dart';
 import 'package:adam_group/Helpers/converter_helper.dart';
 import 'package:adam_group/Helpers/out_app_helper.dart';
@@ -66,8 +65,9 @@ class _ShipmentWidgetState extends State<ShipmentWidget>
                     ),
                   ),
                   child: Text(
-                    isFull ? "${AppLocalizations.of(context)!.shipment}\n${AppLocalizations.of(context)!.full} " : "${AppLocalizations.of(context)!.shipment}\n${AppLocalizations.of(context)!.partial} ",
-                  //  isFull ? "شحن \n كلي" : "شحن \n جزئي",
+                    isFull
+                        ? "${AppLocalizations.of(context)!.shipment}\n${AppLocalizations.of(context)!.full} "
+                        : "${AppLocalizations.of(context)!.shipment}\n${AppLocalizations.of(context)!.partial} ",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
@@ -87,10 +87,12 @@ class _ShipmentWidgetState extends State<ShipmentWidget>
                       children: [
                         Text(
                           widget.container.fileName ?? '',
+                          maxLines: 2,
                           style: TextStyle(
-                            fontSize: 14.sp,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.bold,
                             fontFamily: "cairoFonts",
+                            overflow: TextOverflow.ellipsis,
                             color: isFull
                                 ? AppColor.darkScaffoldColor
                                 : AppColor.primaryColor,
@@ -111,32 +113,67 @@ class _ShipmentWidgetState extends State<ShipmentWidget>
                     ),
                   ),
                 ),
+
+                /// Icons
                 Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: MediaQuery.sizeOf(context).width * 0.02,
                       vertical: MediaQuery.sizeOf(context).height * 0.02),
-                  child: InkWell(
-                    onTap: () async => await _downloadAndShare(),
-                    child: CircleAvatar(
-                      radius: MediaQuery.sizeOf(context).width * 0.054,
-                      backgroundColor: isFull
-                          ? AppColor.darkScaffoldColor
-                          : AppColor.primaryColor,
-                      child: !_loading
-                          ? Icon(
-                              Icons.cloud_download,
-                              size: MediaQuery.sizeOf(context).width * 0.08,
-                              color: isFull
-                                  ? AppColor.primaryColor
-                                  : AppColor.darkScaffoldColor,
-                            )
-                          : const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
-                              ),
-                            ),
-                    ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      /// Download
+                      InkWell(
+                        onTap: () async => await _download(),
+                        child: CircleAvatar(
+                          radius: MediaQuery.sizeOf(context).width * 0.054,
+                          backgroundColor: isFull
+                              ? AppColor.darkScaffoldColor
+                              : AppColor.primaryColor,
+                          child: !_loading
+                              ? Icon(
+                                  Icons.cloud_download,
+                                  size: MediaQuery.sizeOf(context).width * 0.08,
+                                  color: isFull
+                                      ? AppColor.primaryColor
+                                      : AppColor.darkScaffoldColor,
+                                )
+                              : const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                        ),
+                      ),
+
+                      SizedBox(width: MediaQuery.sizeOf(context).width * 0.02),
+
+                      /// Share
+                      InkWell(
+                        onTap: () async => await _share(),
+                        child: CircleAvatar(
+                          radius: MediaQuery.sizeOf(context).width * 0.054,
+                          backgroundColor: isFull
+                              ? AppColor.darkScaffoldColor
+                              : AppColor.primaryColor,
+                          child: !_loading
+                              ? Icon(
+                                  Icons.share,
+                                  size: MediaQuery.sizeOf(context).width * 0.08,
+                                  color: isFull
+                                      ? AppColor.primaryColor
+                                      : AppColor.darkScaffoldColor,
+                                )
+                              : const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -148,8 +185,33 @@ class _ShipmentWidgetState extends State<ShipmentWidget>
   }
 
   bool _loading = false;
+  Future<void> _download() async {
+    try {
+      String link = widget.container.publicUrl ?? '';
 
-  Future<void> _downloadAndShare() async {
+      /// Download
+      await downloadAndSaveImage(link);
+      showSnackBar(context,
+          message: AppLocalizations.of(context)!.downloadSuccessfully,
+          error: false);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> _share() async {
+    try {
+      String link = widget.container.publicUrl ?? '';
+
+      /// Share
+      var file = await convertLinkToFile(link);
+      print(file.path);
+      await shareThisFile(file);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+  /* Future<void> _downloadAndShare() async {
     setState(() {
       _loading = true;
     });
@@ -173,5 +235,5 @@ class _ShipmentWidgetState extends State<ShipmentWidget>
     setState(() {
       _loading = false;
     });
-  }
+  }*/
 }

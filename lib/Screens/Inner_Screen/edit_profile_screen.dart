@@ -3,6 +3,7 @@ import 'package:adam_group/Consts/app_color.dart';
 import 'package:adam_group/Extensions/sized_box_extension.dart';
 import 'package:adam_group/Helpers/data_checker_helper.dart';
 import 'package:adam_group/Helpers/snackbar.dart';
+import 'package:adam_group/Providers/auth_provider.dart';
 import 'package:adam_group/Providers/theme_provider.dart';
 import 'package:adam_group/Widgets/custom_text_field.dart';
 import 'package:adam_group/Widgets/gradient_button.dart';
@@ -18,7 +19,8 @@ class EditProfileScreen extends StatefulWidget {
   State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
-class _EditProfileScreenState extends State<EditProfileScreen>  with SnackBarHelper, DataCheckerHelper {
+class _EditProfileScreenState extends State<EditProfileScreen>
+    with SnackBarHelper, DataCheckerHelper {
   late final TextEditingController nameEditingController;
 
   late final TextEditingController phoneEditingController;
@@ -29,15 +31,18 @@ class _EditProfileScreenState extends State<EditProfileScreen>  with SnackBarHel
 
   late final TextEditingController passworsEditingController;
 
+  AuthProvider get _auth => Provider.of<AuthProvider>(context, listen: false);
+
   @override
   void initState() {
-    nameEditingController = TextEditingController();
-    phoneEditingController = TextEditingController();
-    addressEditingController = TextEditingController();
+    nameEditingController = TextEditingController(text: _auth.userModel?.name ?? '');
+    phoneEditingController = TextEditingController(text: _auth.userModel?.phone ?? '');
+    addressEditingController = TextEditingController(text: _auth.userModel?.address ?? '');
     emailEditingController = TextEditingController();
     passworsEditingController = TextEditingController();
     super.initState();
   }
+
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -48,7 +53,8 @@ class _EditProfileScreenState extends State<EditProfileScreen>  with SnackBarHel
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: MediaQuery.sizeOf(context).width * 0.04),
+          padding: EdgeInsets.symmetric(
+              horizontal: MediaQuery.sizeOf(context).width * 0.04),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -63,38 +69,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>  with SnackBarHel
                   textAlign: TextAlign.center,
                 ),
               ),
-            (MediaQuery.sizeOf(context).height * 0.05).height,
-              // Center(
-              //   child: Container(
-              //     padding: const EdgeInsets.all(5),
-              //     decoration: const BoxDecoration(
-              //       shape: BoxShape.circle,
-              //       // color: Colors.grey,
-              //     ),
-              //     child: Stack(
-              //       children: [
-              //         CircleAvatar(
-              //           backgroundColor: AppColor.borderColor,
-              //           radius: MediaQuery.sizeOf(context).width * 0.2,
-              //           backgroundImage: const AssetImage('assets/images/avatar.png'),
-              //         ),
-              //         Positioned(
-              //           right: 0,
-              //           bottom: 0,
-              //           child: InkWell(
-              //             onTap: () {
-              //             },
-              //             child: Image.asset(
-              //               'assets/images/upload_avatar.png',
-              //               width: MediaQuery.sizeOf(context).width * 0.12,
-              //             ),
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              // (MediaQuery.sizeOf(context).height * 0.03).height,
+              (MediaQuery.sizeOf(context).height * 0.05).height,
               Column(
                 children: [
                   Row(
@@ -182,6 +157,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>  with SnackBarHel
       ),
     );
   }
+
   Future<void> _performUpdateUserInfo() async {
     if (_checkData()) {
       await _updateUserInfo();
@@ -199,7 +175,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>  with SnackBarHel
         phoneEditingController.text,
         emailEditingController.text,
         passworsEditingController.text,
-      //  addressEditingController.text,
+        //  addressEditingController.text,
       );
 
       if (result) {
@@ -217,16 +193,13 @@ class _EditProfileScreenState extends State<EditProfileScreen>  with SnackBarHel
       checkText(
         context,
         text: nameEditingController.text,
-        message:  AppLocalizations.of(context)!.newNameUpdate,
+        message: AppLocalizations.of(context)!.newNameUpdate,
       ) &&
-          checkText(
-            context,
-            text: phoneEditingController.text,
-            message: AppLocalizations.of(context)!.newPhoneNumberUpdate,
-          ) &&
-          checkText(
-            context,
-            text: addressEditingController.text,
-            message: AppLocalizations.of(context)!.newAddressUpdate,
-          );
+      checkText(
+        context,
+        text: phoneEditingController.text,
+        message: AppLocalizations.of(context)!.newPhoneNumberUpdate,
+      )
+
+      ;
 }

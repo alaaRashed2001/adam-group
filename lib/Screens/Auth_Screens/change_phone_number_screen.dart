@@ -2,6 +2,7 @@ import 'package:adam_group/API/Api_Controllers/auth_api_controller.dart';
 import 'package:adam_group/Extensions/sized_box_extension.dart';
 import 'package:adam_group/Helpers/data_checker_helper.dart';
 import 'package:adam_group/Helpers/snackbar.dart';
+import 'package:adam_group/Providers/auth_provider.dart';
 import 'package:adam_group/Providers/theme_provider.dart';
 import 'package:adam_group/Widgets/custom_text_field.dart';
 import 'package:adam_group/Widgets/gradient_button.dart';
@@ -20,10 +21,11 @@ class ChangePhoneNumberScreen extends StatefulWidget {
 class _ChangePhoneNumberScreenState extends State<ChangePhoneNumberScreen>
     with SnackBarHelper, DataCheckerHelper {
   late final TextEditingController mobileEditingController;
+  AuthProvider get _auth => Provider.of<AuthProvider>(context, listen: false);
 
   @override
   void initState() {
-    mobileEditingController = TextEditingController();
+    mobileEditingController = TextEditingController(text: _auth.userModel?.phone ?? '');
     super.initState();
   }
 

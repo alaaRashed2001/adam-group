@@ -1,14 +1,15 @@
 import 'package:adam_group/Consts/app_color.dart';
 import 'package:adam_group/Providers/auth_provider.dart';
+import 'package:adam_group/Providers/lang_provider.dart';
 import 'package:adam_group/Providers/theme_provider.dart';
 import 'package:adam_group/Screens/App_Screens/home_screen.dart';
+import 'package:adam_group/Screens/App_Screens/places_in_china.dart';
 import 'package:adam_group/Screens/App_Screens/profile_screen.dart';
-import 'package:adam_group/Screens/App_Screens/search_screen.dart';
 import 'package:adam_group/Screens/App_Screens/statement_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-
 import 'App_Screens/notification_screen.dart';
 
 class BottomNavigateBar extends StatefulWidget {
@@ -30,11 +31,12 @@ class _BottomNavigateBarState extends State<BottomNavigateBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<AuthProvider, ThemeProvider>(
-      builder: (context, auth, theme, child) {
+    return Consumer3<AuthProvider, ThemeProvider, LangProvider>(
+      builder: (context, auth, theme,lang, child) {
         return Scaffold(
           appBar: AppBar(
-            leading: IconButton(
+            leading:
+            IconButton(
               onPressed: () =>
                 theme.toggleTheme(),
               icon: Icon(
@@ -44,21 +46,50 @@ class _BottomNavigateBarState extends State<BottomNavigateBar> {
               ),
             ),
             title:  Text(
-              "صباح الخير ${auth.userModel?.name}",
+
+             "${AppLocalizations.of(context)!.welcome} ${auth.userModel?.name}",
               style: const TextStyle(
                 fontSize: 12,
                 fontFamily: "cairoFonts",
               ),
             ),
             actions: [
-              // IconButton(
-              //   icon: const Icon(
-              //     Icons.language,
-              //     color: AppColor.primaryColor,
-              //   ),
-              //   onPressed: () async  => await
-              //     lang.changeLanguage(),
-              // ),
+              PopupMenuButton<String>(
+                onSelected: (String value) {
+                  lang.changeLanguage();
+                },
+                icon: const Icon(
+                  Icons.language,
+                  color: AppColor.primaryColor,
+                ),
+                color: AppColor.lightScaffoldColor,
+                itemBuilder: (BuildContext context) => [
+                  PopupMenuItem<String>(
+                    value: "ar",
+                    child: Text(
+                      "العربية",
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontFamily: "cairoFonts",
+                        fontWeight: FontWeight.w600,
+                        color: AppColor.primaryColor,
+                      ),
+                    ),
+                  ),
+                  PopupMenuItem<String>(
+                    value: "en",
+                    child: Text(
+                      "English",
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontFamily: "cairoFonts",
+                        fontWeight: FontWeight.w600,
+                        color: AppColor.primaryColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               IconButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
@@ -108,12 +139,13 @@ class _BottomNavigateBarState extends State<BottomNavigateBar> {
               ),
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.search,
+                //  Icons.search,
+                  Icons.location_on_outlined,
                   color: currentPage == 2
                       ? AppColor.primaryColor
                       : AppColor.secondaryColor,
                 ),
-                label: AppLocalizations.of(context)!.search,
+                label: AppLocalizations.of(context)!.guideChina,
               ),
               BottomNavigationBarItem(
                 icon: Icon(
@@ -136,7 +168,8 @@ class _BottomNavigateBarState extends State<BottomNavigateBar> {
             children: const [
               HomeScreen(),
               StatementScreen(),
-              SearchScreen(),
+             // SearchScreen(),
+              PlacesInChina(),
               ProfileScreen(),
             ],
           ),

@@ -32,6 +32,8 @@ class AuthProvider with ChangeNotifier {
   Future<void> saveUserModel(UserModel user) async {
     await _shared.saveUserModel(user);
     _userModel = user;
+    await _shared.setFingerprintPhone(user.phone ?? '');
+    await _shared.setFingerprintPassword(user.password?? '');
     notifyListeners();
   }
 }

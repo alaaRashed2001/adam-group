@@ -81,5 +81,5 @@ class MyApp extends StatelessWidget {
 // git add .
 // git commit -m "!!"
 // git branch -M main
-// git remote add origin https://github.com/alaaRashed2001/adam-group.git
+// git remote add origin https://github.com/ImadSalama/BetterMe-Mobile.git
 // git push -u origin main

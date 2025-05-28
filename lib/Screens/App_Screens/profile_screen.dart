@@ -62,21 +62,6 @@ class _ProfileScreenState extends State<ProfileScreen>
                     ),
                   ),
                   (MediaQuery.sizeOf(context).height * 0.05).height,
-                  // Center(
-                  //   child: Container(
-                  //     padding: EdgeInsets.all(
-                  //       MediaQuery.sizeOf(context).width * 0.01,
-                  //     ),
-                  //     decoration: const BoxDecoration(shape: BoxShape.circle),
-                  //     child: CircleAvatar(
-                  //       backgroundColor: AppColor.borderColor,
-                  //       radius: MediaQuery.sizeOf(context).width * 0.22,
-                  //       backgroundImage:
-                  //       const AssetImage('assets/images/avatar.png'),
-                  //     ),
-                  //   ),
-                  // ),
-                  // (MediaQuery.sizeOf(context).height * 0.03).height,
                  Center(
                    child: Column(
                      mainAxisAlignment: MainAxisAlignment.center,

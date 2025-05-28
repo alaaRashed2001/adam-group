@@ -21,6 +21,7 @@ class UserModel {
   String? city;
   String? emailVerifiedAt;
   int? isAdmin;
+  String? password;
 
   UserModel();
 
@@ -33,6 +34,7 @@ class UserModel {
     city = json['city'];
     emailVerifiedAt = json['email_verified_at'];
     isAdmin = json['is_admin'];
+    password = json['password'];
   }
 
   Map<String, dynamic> toJson() {
@@ -45,6 +47,7 @@ class UserModel {
     map['city'] = city;
     map['email_verified_at'] = emailVerifiedAt;
     map['is_admin'] = isAdmin;
+    map['password'] = password;
 
     return map;
   }

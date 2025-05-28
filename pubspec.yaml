@@ -84,9 +84,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
-    - assets/images/bottom/
-    - assets/images/offers/
     - assets/images/settings/
+    - assets/images/files/
     - assets/lottie/
   #   - images/a_dot_ham.jpeg
 
@@ -105,6 +104,9 @@ flutter:
      - family: cairoFonts
        fonts:
          - asset: assets/fonts/Cairo-Regular.ttf
+     - family: almaraiFonts
+       fonts:
+         - asset: assets/fonts/Almarai-Regular.ttf
 
   #
   # For details regarding fonts from package dependencies,

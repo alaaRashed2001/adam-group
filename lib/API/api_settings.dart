@@ -1,10 +1,9 @@
 class ApiSettings {
-  static const String baseUrl = "http://147.93.63.182/api/";
+  static const String baseUrl = "https://adamgroup.ps/api/";
 
   /// User
   static const String login = "${baseUrl}login";
   static const String logout = "${baseUrl}logout";
-//static const String resetPassword = "${baseUrl}users/{id}/reset-password";   //Admin
   static const String changePassword = "${baseUrl}user/password";   //Customer
   static const String changeMobileNumber = "${baseUrl}user/mobile";
   static const String updateInfo = "${baseUrl}users/{{{id}}}";
@@ -13,7 +12,6 @@ class ApiSettings {
 
   /// Ads
   static const String getAds = "${baseUrl}ads";
-  //static const String getAsdById = "${baseUrl}ads/{{id}";
 
   /// Places
   static const String getPlaces = "${baseUrl}places";
@@ -27,4 +25,8 @@ class ApiSettings {
 
 /// Account Statement
   static const String getStatementById = "${baseUrl}users/{{id}}/account-statments";
+
+  /// Notifications
+  static const String getNotifications= "${baseUrl}notifications";
+
 }

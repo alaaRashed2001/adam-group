@@ -11,6 +11,11 @@ class SharedPreferencesController {
   static const String userModelKey = 'user_model';
   static const String fcm = 'fcm';
 
+  /// FP
+  static const String fingerprintKey = 'fingerprint_enabled';
+  static const String fpPhone = 'fingerprint_phone';
+  static const String fpPassword = 'fingerprint_password';
+
   static final SharedPreferencesController _sharedPrefControllerObj =
       SharedPreferencesController._sharedPrefPrivateConstructor();
 
@@ -77,4 +82,23 @@ class SharedPreferencesController {
   }
 
   String? get getFCM => _sharedPrefLibObj.getString(fcm);
+
+  /// Save Fingerprint Data
+
+  Future<void> setFingerprintPhone(String phone) async {
+    await _sharedPrefLibObj.setString(fpPhone, phone);
+  }
+
+  String? get getFingerprintPhone => _sharedPrefLibObj.getString(fpPhone);
+
+  Future<void> setFingerprintPassword(String password) async {
+    await _sharedPrefLibObj.setString(fpPassword, password);
+  }
+
+  String? get getFingerprintPassword => _sharedPrefLibObj.getString(fpPassword);
+
+  Future<void> saveLastLoginPhone(String phone) async {
+    await _sharedPrefLibObj.setString('lastLoginPhone', phone);
+  }
+  String? get lastLoginPhone => _sharedPrefLibObj.getString('lastLoginPhone');
 }

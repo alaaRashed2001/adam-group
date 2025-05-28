@@ -4,6 +4,7 @@ import 'package:adam_group/Helpers/navigator_helper.dart';
 import 'package:adam_group/Providers/lang_provider.dart';
 import 'package:adam_group/Providers/theme_provider.dart';
 import 'package:adam_group/Screens/App_Screens/places_screen.dart';
+import 'package:adam_group/generated/assets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,7 +31,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with NavigatorHelper {
               children: [
                 (MediaQuery.of(context).size.height * 0.1).height,
                 Image.asset(
-                  'assets/images/logo.png',
+                  Assets.imagesLogo,
                   width: MediaQuery.of(context).size.width * 0.8,
                 ),
                 Text(

@@ -46,7 +46,7 @@ class _AdsCardSwiperState extends State<AdsCardSwiper> {
                   height: double.infinity,
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) return child;
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator(color: AppColor.primaryColor,));
                   },
                   errorBuilder: (context, error, stackTrace) {
                     return const Center(
@@ -55,27 +55,27 @@ class _AdsCardSwiperState extends State<AdsCardSwiper> {
                     );
                   },
                 ),
-                Positioned(
-                  bottom: 15,
-                  left: 10,
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      ad.title ?? "",
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontFamily: "cairoFonts",
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
+                // Positioned(
+                //   bottom: 15,
+                //   left: 10,
+                //   child: Container(
+                //     padding:
+                //         const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                //     decoration: BoxDecoration(
+                //       color: Colors.black.withOpacity(0.5),
+                //       borderRadius: BorderRadius.circular(8),
+                //     ),
+                //     child: Text(
+                //       ad.title ?? "",
+                //       style: const TextStyle(
+                //         color: Colors.white,
+                //         fontSize: 16,
+                //         fontFamily: "cairoFonts",
+                //         fontWeight: FontWeight.bold,
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           );

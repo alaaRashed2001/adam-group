@@ -52,7 +52,12 @@
   "newPasswordToSave" :"Please enter the new password to save it.",
   "confirmPasswordMatches" :"Please confirm the new password to ensure it matches.",
   "newPasswordMatchConfirmedPassword" :"The new password must match the confirmed password.",
-  "downloadSuccessfully" :"The download has been completed successfully."
+  "downloadSuccessfully" :"The download has been completed successfully.",
+  "fileOpenedSuccessfully" :"  The file has been opened successfully",
+  "welcome" :"Welcome",
+  "placesChina" :"Places In China",
+  "showDetails" :"Show Details",
+  "guideChina" :"Your Guide in China."
 
 
 

@@ -18,20 +18,20 @@ class LocalAuth {
     try {
       bool status = await _auth.authenticate(
         localizedReason: 'The app requires fingerprint.',
-        options: AuthenticationOptions(
+        options: const AuthenticationOptions(
           useErrorDialogs: true,
           biometricOnly: true, // FaceId, FingerPrint, Pin, Password
           stickyAuth: true,
           sensitiveTransaction: false,
         ),
         authMessages: [
-          AndroidAuthMessages(
+          const AndroidAuthMessages(
             signInTitle: 'Access application',
             biometricHint: '',
             goToSettingsButton: 'Go to settings',
             cancelButton: 'Cancel',
           ),
-          IOSAuthMessages(
+          const IOSAuthMessages(
             cancelButton: 'Cancel',
             goToSettingsButton: 'Go to settings',
           ),

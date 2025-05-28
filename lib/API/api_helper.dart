@@ -20,17 +20,6 @@ mixin ApiHelper on SnackBarHelper {
     return headers;
   }
 
-  /// {
-  //     "message": "The phone field is required. (and 1 more error)",
-  //     "errors": {
-  //         "phone": [
-  //             "The phone field is required."
-  //         ],
-  //         "password": [
-  //             "The password field is required."
-  //         ]
-  //     }
-  // }
 
   void handleErrors(BuildContext context, Map<String, dynamic> response) {
     if (response.containsKey('errors')) {

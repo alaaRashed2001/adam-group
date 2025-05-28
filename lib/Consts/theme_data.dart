@@ -10,9 +10,6 @@ class Styles {
       scaffoldBackgroundColor: isDarkTheme
           ? AppColor.darkScaffoldColor
           : AppColor.lightScaffoldColor,
-      // cardColor: isDarkTheme
-      //     ? const Color.fromARGB(255, 13, 6, 37)
-      //     : AppColor.lightCardColor,
       brightness: isDarkTheme ? Brightness.dark : Brightness.light,
       appBarTheme: AppBarTheme(
         backgroundColor: isDarkTheme

@@ -1,4 +1,8 @@
+import 'package:adam_group/API/Api_Controllers/notification_api_controller.dart';
 import 'package:adam_group/Extensions/sized_box_extension.dart';
+import 'package:adam_group/Models/notification_model.dart';
+import 'package:adam_group/Screens/Widgets/notification_card_widget.dart';
+import 'package:adam_group/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,7 +17,32 @@ class NotificationsScreen extends StatefulWidget {
 }
 
 class _NotificationsScreenState extends State<NotificationsScreen> {
-  List notifications = [];
+  List<NotificationModel> notifications = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _init;
+  }
+
+  bool _loading = true;
+
+  Future<void> get _init async {
+    await _getNotifications;
+    setState(() {
+      _loading = false;
+    });
+  }
+
+  Future<void> get _getNotifications async {
+    try {
+      var data = await NotificationApiController().getNotifications();
+      notifications = data;
+    } catch (e) {
+      ///
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,84 +58,43 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         elevation: 0,
         iconTheme: const IconThemeData(color: AppColor.primaryColor),
       ),
-      body: notifications.isNotEmpty
-          ? Padding(
-              padding: EdgeInsets.all(MediaQuery.sizeOf(context).width * 0.04),
-              child: ListView.builder(
-                itemCount: 10, // عدد الإشعارات
-                itemBuilder: (context, index) {
-                  return Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        MediaQuery.sizeOf(context).width * 0.03,
+      body: !_loading
+          ? notifications.isNotEmpty
+              ? Padding(
+                  padding:
+                      EdgeInsets.all(MediaQuery.sizeOf(context).width * 0.04),
+                  child: ListView.builder(
+                      itemCount: notifications.length,
+                      itemBuilder: (context, index) =>
+                          NotificationCard(notification: notifications[index])
+
+
                       ),
-                      side: const BorderSide(color: AppColor.borderColor),
-                    ),
-                    elevation: 2,
-                    child: ListTile(
-                      leading: Container(
-                        padding: EdgeInsets.all(
-                            MediaQuery.sizeOf(context).width * 0.02),
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: LinearGradient(
-                            colors: [AppColor.startColor, AppColor.endColor],
-                          ),
-                        ),
-                        child: Icon(
-                          Icons.notifications,
-                          color: AppColor.lightScaffoldColor,
-                          size: MediaQuery.sizeOf(context).width * 0.06,
-                        ),
+                )
+              : Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        Assets.imagesNotification,
+                        width: 120.w,
                       ),
-                      title: Text(
-                        'عنوان الإشعار ${index + 1}',
+                      16.height,
+                      Text(
+                        AppLocalizations.of(context)!.notification,
                         style: TextStyle(
                           color: AppColor.primaryColor,
-                          fontFamily: "cairoFonts",
                           fontWeight: FontWeight.bold,
-                          fontSize: MediaQuery.sizeOf(context).width * 0.045,
-                        ),
-                      ),
-                      subtitle: Text(
-                        'تفاصيل الإشعار ${index + 1} هنا.',
-                        style: TextStyle(
-                          color: AppColor.secondaryColor,
                           fontFamily: "cairoFonts",
-                          fontSize: MediaQuery.sizeOf(context).width * 0.035,
+                          fontSize: 24.sp,
                         ),
                       ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        color: AppColor.secondaryColor,
-                        size: MediaQuery.sizeOf(context).width * 0.04,
-                      ),
-                      onTap: () {
-                        // إضافة الأكشن عند الضغط على الإشعار
-                      },
-                    ),
-                  );
-                },
-              ),
-            )
-          : Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                      'assets/images/notification.png',
-                    width: 120.w,
+                    ],
                   ),
-                  16.height,
-                  Text(
-                    AppLocalizations.of(context)!.notification,
-                    style: TextStyle(
-                        color: AppColor.primaryColor,
-                        fontWeight: FontWeight.bold,
-                      fontFamily: "cairoFonts",
-                        fontSize: 24.sp,),
-                  ),
-                ],
+                )
+          : const Center(
+              child: CircularProgressIndicator(
+                color: AppColor.primaryColor,
               ),
             ),
     );
