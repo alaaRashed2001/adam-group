@@ -126,7 +126,7 @@ class _OnePlaceWidgetState extends State<OnePlaceWidget> with NavigatorHelper {
                         AppLocalizations.of(context)!.showDetails,
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 8.0,
+                          fontSize: 8.sp,
                           fontFamily: "almaraiFonts",
                           fontWeight: FontWeight.bold,
                         ),

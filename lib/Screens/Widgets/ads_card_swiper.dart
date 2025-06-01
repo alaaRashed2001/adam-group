@@ -1,5 +1,6 @@
 import 'package:adam_group/Consts/app_color.dart';
 import 'package:adam_group/Models/ads_model.dart';
+import 'package:adam_group/Widgets/lottie_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 
@@ -46,7 +47,7 @@ class _AdsCardSwiperState extends State<AdsCardSwiper> {
                   height: double.infinity,
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) return child;
-                    return const Center(child: CircularProgressIndicator(color: AppColor.primaryColor,));
+                    return const LottieLoader();
                   },
                   errorBuilder: (context, error, stackTrace) {
                     return const Center(
@@ -55,27 +56,6 @@ class _AdsCardSwiperState extends State<AdsCardSwiper> {
                     );
                   },
                 ),
-                // Positioned(
-                //   bottom: 15,
-                //   left: 10,
-                //   child: Container(
-                //     padding:
-                //         const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                //     decoration: BoxDecoration(
-                //       color: Colors.black.withOpacity(0.5),
-                //       borderRadius: BorderRadius.circular(8),
-                //     ),
-                //     child: Text(
-                //       ad.title ?? "",
-                //       style: const TextStyle(
-                //         color: Colors.white,
-                //         fontSize: 16,
-                //         fontFamily: "cairoFonts",
-                //         fontWeight: FontWeight.bold,
-                //       ),
-                //     ),
-                //   ),
-                // ),
               ],
             ),
           );
@@ -89,9 +69,6 @@ class _AdsCardSwiperState extends State<AdsCardSwiper> {
             activeColor: AppColor.primaryColor,
           ),
         ),
-        // control: const SwiperControl(
-        //   color: AppColor.primaryColor,
-        // ),
       ),
     );
   }

@@ -5,9 +5,11 @@ import 'package:adam_group/Helpers/snackbar.dart';
 import 'package:adam_group/Models/places_model.dart';
 import 'package:adam_group/Providers/theme_provider.dart';
 import 'package:adam_group/Widgets/gradient_button.dart';
+import 'package:adam_group/Widgets/lottie_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DetailsOnePlace extends StatefulWidget {
   final PlaceModel place;
@@ -137,7 +139,7 @@ class _DetailsOnePlaceState extends State<DetailsOnePlace>
                 ),
                 (24).height,
                 GradientButton(
-                  text: "عرض الموقع على الخريطة",
+                  text: AppLocalizations.of(context)!.viewLocationOnMap,
                   textSize: 14.sp,
                   horizontalPadding: 16.w,
                   onPressed: () async {
@@ -147,9 +149,7 @@ class _DetailsOnePlaceState extends State<DetailsOnePlace>
                 (24).height,
               ],
             )
-          : const Center(
-              child: CircularProgressIndicator(),
-            ),
+          :const LottieLoader()
     );
   }
 }

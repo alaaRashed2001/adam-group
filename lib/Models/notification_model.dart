@@ -32,19 +32,6 @@ class NotificationModel {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'user_id': userId,
-      'title': title,
-      'body': body,
-      'is_read': isRead,
-      'data': data,
-      'created_at': createdAt,
-      'updated_at': updatedAt,
-    };
-  }
-
   static List<NotificationModel> parseList(List<dynamic> jsonList) {
     return jsonList.map((json) => NotificationModel.fromJson(json)).toList();
   }

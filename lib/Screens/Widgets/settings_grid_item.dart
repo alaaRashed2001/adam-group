@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SettingsGridItem extends StatelessWidget {
-  // final IconData icon;
   final String image;
   final String title;
   final VoidCallback onTap;

@@ -12,13 +12,6 @@ class PlacesListModel {
     }
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.places != null) {
-      data['places'] = this.places!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
 }
 
 class PlaceModel {
@@ -61,19 +54,4 @@ class PlaceModel {
     publicUrl = json['public_url'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['image_name'] = this.imageName;
-    data['image_path'] = this.imagePath;
-    data['description'] = this.description;
-    data['location_url'] = this.location;
-    data['city'] = this.city;
-    data['country'] = this.country;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['public_url'] = this.publicUrl;
-    return data;
-  }
 }

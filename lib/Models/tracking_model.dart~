@@ -1,0 +1,126 @@
+// models/tracking_model.dart
+
+class TrackingResponse {
+  final String status;
+  final String message;
+  final TrackingData data;
+
+  TrackingResponse({required this.status, required this.message, required this.data});
+
+  factory TrackingResponse.fromJson(Map<String, dynamic> json) {
+    return TrackingResponse(
+      status: json['status'],
+      message: json['message'],
+      data: TrackingData.fromJson(json['data']),
+    );
+  }
+}
+
+class TrackingData {
+  final Metadata metadata;
+  final List<Location> locations;
+  final List<Container> containers;
+
+  TrackingData({
+    required this.metadata,
+    required this.locations,
+    required this.containers,
+  });
+
+  factory TrackingData.fromJson(Map<String, dynamic> json) {
+    return TrackingData(
+      metadata: Metadata.fromJson(json['metadata']),
+      locations: (json['locations'] as List)
+          .map((e) => Location.fromJson(e))
+          .toList(),
+      containers: (json['containers'] as List)
+          .map((e) => Container.fromJson(e))
+          .toList(),
+    );
+  }
+}
+
+class Metadata {
+  final String number;
+  final String status;
+  final bool isStatusFromSealine;
+
+  Metadata({
+    required this.number,
+    required this.status,
+    required this.isStatusFromSealine,
+  });
+
+  factory Metadata.fromJson(Map<String, dynamic> json) {
+    return Metadata(
+      number: json['number'],
+      status: json['status'],
+      isStatusFromSealine: json['is_status_from_sealine'],
+    );
+  }
+}
+
+class Location {
+  final String name;
+  final String country;
+  final double lat;
+  final double lng;
+
+  Location({
+    required this.name,
+    required this.country,
+    required this.lat,
+    required this.lng,
+  });
+
+  factory Location.fromJson(Map<String, dynamic> json) {
+    return Location(
+      name: json['name'],
+      country: json['country'],
+      lat: json['lat'].toDouble(),
+      lng: json['lng'].toDouble(),
+    );
+  }
+}
+
+class Container {
+  final String number;
+  final String status;
+  final List<ContainerEvent> events;
+
+  Container({
+    required this.number,
+    required this.status,
+    required this.events,
+  });
+
+  factory Container.fromJson(Map<String, dynamic> json) {
+    return Container(
+      number: json['number'],
+      status: json['status'],
+      events: (json['events'] as List)
+          .map((e) => ContainerEvent.fromJson(e))
+          .toList(),
+    );
+  }
+}
+
+class ContainerEvent {
+  final String description;
+  final String date;
+  final int location;
+
+  ContainerEvent({
+    required this.description,
+    required this.date,
+    required this.location,
+  });
+
+  factory ContainerEvent.fromJson(Map<String, dynamic> json) {
+    return ContainerEvent(
+      description: json['description'],
+      date: json['date'],
+      location: json['location'],
+    );
+  }
+}

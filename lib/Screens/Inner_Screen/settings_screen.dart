@@ -4,7 +4,6 @@ import 'package:adam_group/Extensions/sized_box_extension.dart';
 import 'package:adam_group/Helpers/navigator_helper.dart';
 import 'package:adam_group/Helpers/warning_dialog.dart';
 import 'package:adam_group/Providers/auth_provider.dart';
-import 'package:adam_group/Providers/lang_provider.dart';
 import 'package:adam_group/Providers/theme_provider.dart';
 import 'package:adam_group/Screens/Auth_Screens/change_password_screen.dart';
 import 'package:adam_group/Screens/Auth_Screens/change_phone_number_screen.dart';
@@ -28,15 +27,11 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen>
     with WarningDialogHelper, NavigatorHelper {
-  late bool _isFingerprintEnabled;
 
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final color = themeProvider.isDarkTheme ? Colors.white : Colors.black;
-    final langProvider = Provider.of<LangProvider>(context);
-    bool isArabic = langProvider.lang == 'ar';
-
     final List<Map<String, dynamic>> settings = [
       {
         'title': AppLocalizations.of(context)!.updateInfo,

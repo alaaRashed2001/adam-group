@@ -7,6 +7,8 @@ import 'package:adam_group/Helpers/snackbar.dart';
 import 'package:adam_group/Models/accoun_statment_model.dart';
 import 'package:adam_group/Providers/auth_provider.dart';
 import 'package:adam_group/Widgets/gradient_button.dart';
+import 'package:adam_group/Widgets/images_no_data.dart';
+import 'package:adam_group/Widgets/lottie_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -121,10 +123,8 @@ class _StatementScreenState extends State<StatementScreen>
                           ),
                           child: _image(screenHeight),
                         ),
-                      ) : Center(child: Image.asset('assets/images/noData.png'),)
-                    : const Center(
-                        child: CircularProgressIndicator(color: AppColor.primaryColor,),
-                      ),
+                      ) : const ImagesNoData()
+                    :  const LottieLoader(),
               ),
             ),
             (screenHeight * 0.05).height,
@@ -174,3 +174,7 @@ class _StatementScreenState extends State<StatementScreen>
     }
   }
 }
+
+
+
+

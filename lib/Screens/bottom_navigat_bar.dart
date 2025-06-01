@@ -168,7 +168,6 @@ class _BottomNavigateBarState extends State<BottomNavigateBar> {
             children: const [
               HomeScreen(),
               StatementScreen(),
-             // SearchScreen(),
               PlacesInChina(),
               ProfileScreen(),
             ],

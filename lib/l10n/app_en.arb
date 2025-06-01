@@ -9,6 +9,7 @@
   "password":"password",
   "forgotPassword":"Forgot your password?",
   "login":"Login",
+  "email":"Email",
   "confirmFingerprint":"To proceed, please confirm your fingerprint.",
   "cancel":"Cancel",
   "ok":"Ok",
@@ -25,6 +26,7 @@
   "download":"Download",
   "share":"Share",
   "save":"Save",
+  "viewLocationOnMap": "View location on the map",
   "searchShipment":"Search for a shipment",
   "shipmentNumber":"Shipment Number",
   "fullName":"Full Name",
@@ -57,7 +59,20 @@
   "welcome" :"Welcome",
   "placesChina" :"Places In China",
   "showDetails" :"Show Details",
-  "guideChina" :"Your Guide in China."
+  "guideChina" :"Your Guide in China.",
+  "tracking": "Tracking",
+    "delivered": "Delivered",
+    "download": "Download",
+    "share": "Share",
+    "downloadSuccessfully": "Downloaded successfully",
+    "trackingNumberNotAvailable": "Tracking number not available",
+    "trackingInformationNotAvailableYet": "Tracking information is not available yet",
+      "shipmentNumber": "Shipment Number",
+      "shippingLineName": "Shipping Line Name",
+      "shipmentStatus": "Shipment Status",
+      "containersCount": "Number of Containers",
+      "startDate": "Start Date",
+      "expectedArrivalDate": "Expected Arrival Date"
 
 
 

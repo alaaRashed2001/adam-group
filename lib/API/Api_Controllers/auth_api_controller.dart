@@ -4,10 +4,8 @@ import 'package:adam_group/API/api_settings.dart';
 import 'package:adam_group/Helpers/snackbar.dart';
 import 'package:adam_group/Models/status_message_model.dart';
 import 'package:adam_group/Models/user_model.dart';
-import 'package:adam_group/Providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
 
 class AuthApiController with SnackBarHelper, ApiHelper {
   Future<LoginResponseModel?> login(
@@ -47,11 +45,11 @@ class AuthApiController with SnackBarHelper, ApiHelper {
         }),
       );
 
-      if (response.statusCode == 200 ) {
+      if (response.statusCode == 200) {
         final data = StatusMessageModel.fromJson(jsonDecode(response.body));
         showSnackBar(context, message: data.message ?? '', error: false);
         return true;
-      }else if (response.statusCode == 400 ) {
+      } else if (response.statusCode == 400) {
         final data = StatusMessageModel.fromJson(jsonDecode(response.body));
         showSnackBar(context, message: data.message ?? '', error: true);
         return false;
@@ -66,21 +64,19 @@ class AuthApiController with SnackBarHelper, ApiHelper {
   }
 
   Future<bool> changeMobile(
-      BuildContext context,
-
-      String newMobile,
-      ) async {
+    BuildContext context,
+    String newMobile,
+  ) async {
     try {
       final response = await http.patch(
         Uri.parse(ApiSettings.changeMobileNumber),
         headers: apiHeaders,
         body: json.encode({
           'phone': newMobile,
-
         }),
       );
 
-      if (response.statusCode == 200 ) {
+      if (response.statusCode == 200) {
         final data = StatusMessageModel.fromJson(jsonDecode(response.body));
         showSnackBar(context, message: data.message ?? '', error: false);
         return true;
@@ -95,26 +91,24 @@ class AuthApiController with SnackBarHelper, ApiHelper {
   }
 
   Future<bool> updateUserInfo(
-      BuildContext context,
-      String newName,
-      String newPhone,
-      String newEmail,
-      String newPassword,
-     // String newAddress,
-      ) async {
+    BuildContext context,
+    String newName,
+    String newPhone,
+    String newEmail,
+    String newPassword,
+  ) async {
     try {
       final response = await http.put(
         Uri.parse(ApiSettings.updateInfo),
         headers: apiHeaders,
         body: json.encode({
           'name': newName,
-          'phone': newPhone,
           'email': newEmail,
           'password': newPassword,
-         // 'address': newAddress,
+          'phone': newPhone,
         }),
       );
-      if (response.statusCode == 200 ) {
+      if (response.statusCode == 200) {
         final data = StatusMessageModel.fromJson(jsonDecode(response.body));
         showSnackBar(context, message: data.message ?? '', error: false);
         return true;
@@ -127,7 +121,6 @@ class AuthApiController with SnackBarHelper, ApiHelper {
       return false;
     }
   }
-
 
   Future<bool> logout() async {
     try {
@@ -156,7 +149,6 @@ class AuthApiController with SnackBarHelper, ApiHelper {
       return false;
     }
   }
-
 
   Future<void> saveFcm(BuildContext context, String? fcm) async {
     try {

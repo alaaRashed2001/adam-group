@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:adam_group/API/Api_Controllers/ad_api_controller.dart';
 import 'package:adam_group/API/Api_Controllers/place_api_controller.dart';
 import 'package:adam_group/Consts/app_color.dart';
@@ -11,9 +10,9 @@ import 'package:adam_group/Providers/theme_provider.dart';
 import 'package:adam_group/Screens/Auth_Screens/login_screen.dart';
 import 'package:adam_group/Screens/Widgets/ads_card_swiper.dart';
 import 'package:adam_group/Screens/Widgets/one_place_widget.dart';
-import 'package:adam_group/Screens/welcom_screen.dart';
+import 'package:adam_group/Widgets/images_no_data.dart';
+import 'package:adam_group/Widgets/lottie_loader.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,60 +25,47 @@ class PlacesScreen extends StatefulWidget {
 
 class _PlacesScreenState extends State<PlacesScreen> with NavigatorHelper {
   List<PlaceModel> places = [];
-
   List<AdsModel> ads = [];
+
+  bool adsLoading = true;
+  bool placesLoading = true;
 
   @override
   void initState() {
     super.initState();
-
-    // Timer.periodic(const Duration(minutes: 1), (timer) {
-    //   setState(() {});
-    // });
-
-    _init;
+    _init();
   }
 
-  bool _loading = true;
-
-  Future<void> get _init async {
-    await _getAds;
-    await _getPlaces;
-
-    setState(() {
-      _loading = false;
-    });
+  Future<void> _init() async {
+    await Future.wait([
+      _getAds(),
+      _getPlaces(),
+    ]);
   }
 
-  Future<void> get _getPlaces async {
+  Future<void> _getPlaces() async {
     try {
       var list = await PlaceApiController().getPlaces(context);
       places = list;
     } catch (e) {
-      ///
+    } finally {
+      setState(() {
+        placesLoading = false;
+      });
     }
   }
 
-  Future<void> get _getAds async {
+  Future<void> _getAds() async {
     try {
       var list = await AdsApiController().getAds(context);
       ads = list;
     } catch (e) {
-      ///
+    } finally {
+      setState(() {
+        adsLoading = false;
+      });
     }
   }
-
-  // String getGreeting(BuildContext context) {
-  //   int hour = DateTime.now().hour;
-  //
-  //   if (hour >= 5 && hour < 12) {
-  //     return AppLocalizations.of(context)!.goodMorning;
-  //   } else if (hour >= 12 && hour < 18) {
-  //     return AppLocalizations.of(context)!.goodEvening;
-  //   } else {
-  //     return AppLocalizations.of(context)!.goodNight;
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -89,21 +75,16 @@ class _PlacesScreenState extends State<PlacesScreen> with NavigatorHelper {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () =>
-              Provider.of<ThemeProvider>(context, listen: false).toggleTheme(),
+          onPressed: () => themeProvider.toggleTheme(),
           icon: Icon(
-            Provider.of<ThemeProvider>(context).isDarkTheme
-                ? Icons.dark_mode
-                : Icons.light_mode,
+            themeProvider.isDarkTheme ? Icons.dark_mode : Icons.light_mode,
             color: AppColor.primaryColor,
             size: 26,
           ),
         ),
         title: Text(
           AppLocalizations.of(context)!.welcome,
-         // getGreeting(context),
           style: const TextStyle(
-            // fontSize: 12,
             fontFamily: "cairoFonts",
           ),
         ),
@@ -120,66 +101,67 @@ class _PlacesScreenState extends State<PlacesScreen> with NavigatorHelper {
           ),
         ],
       ),
-      body: !_loading
-          ? Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.paddingOf(context).left + 16,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  /// Swiper Section
-                  AdsCardSwiper(ads: ads),
+      body: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.paddingOf(context).left + 16,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
 
-                  (MediaQuery.sizeOf(context).height * 0.04).height,
+            adsLoading
+                ?
 
-                  /// Places Section
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.placesChina,
-                        //  ' اماكن في ${places.first.city}'
-                        style: TextStyle(
-                          color: color,
-                          fontSize: MediaQuery.sizeOf(context).width * 0.05,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: "almaraiFonts",
-                        ),
-                      ),
-                      Divider(
-                        thickness: 2,
-                        color: AppColor.primaryColor,
-                        endIndent: MediaQuery.sizeOf(context).width * 0.4,
-                      ),
-                    ],
+           const LottieLoader()
+                : AdsCardSwiper(ads: ads),
+
+            (MediaQuery.sizeOf(context).height * 0.04).height,
+
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.placesChina,
+                  style: TextStyle(
+                    color: color,
+                    fontSize: MediaQuery.sizeOf(context).width * 0.05,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: "almaraiFonts",
                   ),
-                  Expanded(
-                    child: GridView.builder(
-                      itemCount: places.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 0.83, // نسبة العرض إلى الارتفاع
-                        crossAxisSpacing:
-                            MediaQuery.sizeOf(context).width * 0.03,
-                        mainAxisSpacing:
-                            MediaQuery.sizeOf(context).width * 0.03,
-                      ),
-                      itemBuilder: (context, index) {
-                        final place = places[index];
-
-                        return OnePlaceWidget(place: place);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            )
-          : const Center(
-              child: CircularProgressIndicator(),
+                ),
+                Divider(
+                  thickness: 2,
+                  color: AppColor.primaryColor,
+                  endIndent: MediaQuery.sizeOf(context).width * 0.4,
+                ),
+              ],
             ),
+
+            Expanded(
+              child: placesLoading
+                  ? const LottieLoader()
+                  : places.isEmpty
+                  ?  const ImagesNoData()
+                  : GridView.builder(
+                itemCount: places.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.83,
+                  crossAxisSpacing: MediaQuery.sizeOf(context).width * 0.03,
+                  mainAxisSpacing: MediaQuery.sizeOf(context).width * 0.03,
+                ),
+                itemBuilder: (context, index) {
+                  final place = places[index];
+                  return OnePlaceWidget(place: place);
+                },
+              ),
+            ),
+
+          ],
+        ),
+      ),
     );
   }
 }
+
+

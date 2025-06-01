@@ -1,5 +1,4 @@
 import 'package:adam_group/API/Api_Controllers/auth_api_controller.dart';
-import 'package:adam_group/Consts/app_color.dart';
 import 'package:adam_group/Extensions/sized_box_extension.dart';
 import 'package:adam_group/Helpers/data_checker_helper.dart';
 import 'package:adam_group/Helpers/snackbar.dart';
@@ -23,23 +22,24 @@ class _EditProfileScreenState extends State<EditProfileScreen>
     with SnackBarHelper, DataCheckerHelper {
   late final TextEditingController nameEditingController;
 
-  late final TextEditingController phoneEditingController;
-
-  late final TextEditingController addressEditingController;
-
   late final TextEditingController emailEditingController;
 
-  late final TextEditingController passworsEditingController;
+  late final TextEditingController passwordEditingController;
+  late final TextEditingController phoneEditingController;
 
   AuthProvider get _auth => Provider.of<AuthProvider>(context, listen: false);
 
   @override
   void initState() {
-    nameEditingController = TextEditingController(text: _auth.userModel?.name ?? '');
-    phoneEditingController = TextEditingController(text: _auth.userModel?.phone ?? '');
-    addressEditingController = TextEditingController(text: _auth.userModel?.address ?? '');
-    emailEditingController = TextEditingController();
-    passworsEditingController = TextEditingController();
+    nameEditingController =
+        TextEditingController(text: _auth.userModel?.name ?? '');
+    emailEditingController =
+        TextEditingController(text: _auth.userModel?.email ?? '');
+    passwordEditingController =
+        TextEditingController(text: _auth.userModel?.password ?? '');
+    phoneEditingController =
+        TextEditingController(text: _auth.userModel?.phone ?? '');
+
     super.initState();
   }
 
@@ -100,6 +100,52 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                     children: [
                       Expanded(
                         child: Text(
+                          AppLocalizations.of(context)!.email,
+                          style: TextStyle(
+                            color: color,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w300,
+                            fontFamily: "cairoFonts",
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      (MediaQuery.sizeOf(context).width * 0.02).width,
+                      Expanded(
+                        flex: 3,
+                        child: CustomTextInputField(
+                            hint: "", controller: emailEditingController),
+                      )
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          AppLocalizations.of(context)!.password,
+                          style: TextStyle(
+                            color: color,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w300,
+                            fontFamily: "cairoFonts",
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      (MediaQuery.sizeOf(context).width * 0.02).width,
+                      Expanded(
+                        flex: 3,
+                        child: CustomTextInputField(
+                            hint: "", controller: passwordEditingController),
+                      )
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Text(
                           AppLocalizations.of(context)!.mobileNumber,
                           style: TextStyle(
                             color: color,
@@ -115,29 +161,6 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                         flex: 3,
                         child: CustomTextInputField(
                             hint: "", controller: phoneEditingController),
-                      )
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          AppLocalizations.of(context)!.address,
-                          style: TextStyle(
-                            color: color,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w300,
-                            fontFamily: "cairoFonts",
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      (MediaQuery.sizeOf(context).width * 0.02).width,
-                      Expanded(
-                        flex: 3,
-                        child: CustomTextInputField(
-                            hint: "", controller: addressEditingController),
                       )
                     ],
                   ),
@@ -172,9 +195,10 @@ class _EditProfileScreenState extends State<EditProfileScreen>
       var result = await AuthApiController().updateUserInfo(
         context,
         nameEditingController.text,
-        phoneEditingController.text,
         emailEditingController.text,
-        passworsEditingController.text,
+        passwordEditingController.text,
+        phoneEditingController.text,
+
         //  addressEditingController.text,
       );
 
@@ -197,9 +221,17 @@ class _EditProfileScreenState extends State<EditProfileScreen>
       ) &&
       checkText(
         context,
+        text: emailEditingController.text,
+        message: AppLocalizations.of(context)!.email,
+      ) &&
+      checkText(
+        context,
+        text: passwordEditingController.text,
+        message: AppLocalizations.of(context)!.newPassword,
+      ) &&
+      checkText(
+        context,
         text: phoneEditingController.text,
         message: AppLocalizations.of(context)!.newPhoneNumberUpdate,
-      )
-
-      ;
+      );
 }

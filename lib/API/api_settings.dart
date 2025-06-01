@@ -1,6 +1,11 @@
 class ApiSettings {
   static const String baseUrl = "https://adamgroup.ps/api/";
 
+  /// Tracking
+  static const String trackingApiKey = "K-7B90D58A-F456-46B5-B8B4-FDD224EC25F8";
+  static const String trackingBaseUrl = "https://tracking.searates.com/";
+
+  static const String getTracking = "${trackingBaseUrl}tracking?api_key=$trackingApiKey&number={{number}}&sealine=auto&force_update=false&route=false&ais=false";
   /// User
   static const String login = "${baseUrl}login";
   static const String logout = "${baseUrl}logout";
@@ -18,10 +23,7 @@ class ApiSettings {
   static const String getPlacesById = "${baseUrl}places/{id}";
 
   /// Containers
-  //View customer container list  للادمن
- // View container for himself  للكستمر
   static const String getContainersForHimself = "${baseUrl}user/containers";
-  // static const String getCustomerContainersList = "${baseUrl}users/{{id}}/containers";
 
 /// Account Statement
   static const String getStatementById = "${baseUrl}users/{{id}}/account-statments";

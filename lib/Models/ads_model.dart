@@ -7,18 +7,12 @@ class AdsListModel {
     if (json['ads'] != null) {
       ads = <AdsModel>[];
       json['ads'].forEach((v) {
-        ads!.add(new AdsModel.fromJson(v));
+        ads!.add( AdsModel.fromJson(v));
       });
     }
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.ads != null) {
-      data['ads'] = this.ads!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
+
 }
 
 class AdsModel {
@@ -49,15 +43,5 @@ class AdsModel {
     publicUrl = json['public_url'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['description'] = this.description;
-    data['image_path'] = this.imagePath;
-    data['image_name'] = this.imageName;
-    data['is_published'] = this.isPublished;
-    data['public_url'] = this.publicUrl;
-    return data;
-  }
+
 }

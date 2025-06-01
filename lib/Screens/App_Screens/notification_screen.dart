@@ -2,6 +2,7 @@ import 'package:adam_group/API/Api_Controllers/notification_api_controller.dart'
 import 'package:adam_group/Extensions/sized_box_extension.dart';
 import 'package:adam_group/Models/notification_model.dart';
 import 'package:adam_group/Screens/Widgets/notification_card_widget.dart';
+import 'package:adam_group/Widgets/lottie_loader.dart';
 import 'package:adam_group/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,7 +22,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _init;
   }
@@ -92,11 +92,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     ],
                   ),
                 )
-          : const Center(
-              child: CircularProgressIndicator(
-                color: AppColor.primaryColor,
-              ),
-            ),
+          : const LottieLoader(),
     );
   }
 }
